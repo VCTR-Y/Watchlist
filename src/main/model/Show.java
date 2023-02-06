@@ -1,20 +1,23 @@
 package model;
 
+// Represents a show having a name, episodes, number of episodes watched, status, and rating
 public class Show {
 
-    private static String name;
-    private static int episodes;
-    private static int episodesWatched;
-    private static Status status;
+    private String name;
+    private int episodes;
+    private int episodesWatched;
+    private Status status;
+    private Rating rating;
 
     public Show(String showName, int showEpisodes, int showEpisodesWatched, Status showStatus) {
         this.name = showName;
         this.episodes = showEpisodes;
         this.episodesWatched = showEpisodesWatched;
         this.status = showStatus;
+        this.rating = Rating.NotCompleted;
     }
 
-    // EFFECTS; returns the name of the show
+    // EFFECTS: returns the name of the show
     public String getShowName() {
         return name;
     }
@@ -31,5 +34,10 @@ public class Show {
     // EFFECTS: returns the status of the show
     public Status getShowStatus() {
         return status;
+    }
+
+    // EFFECTS: returns the rating of the show
+    public int getShowRating() {
+        return rating.getNumRating();
     }
 }

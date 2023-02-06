@@ -14,15 +14,16 @@ public class MovieTest {
 
     @BeforeEach
     public void runBefore() {
-    movie1 = new Movie("M1", TO_WATCH);
-    movie2 = new Movie("M2", WATCHING);
-    movie3 = new Movie("M3", WATCHED);
+        movie1 = new Movie("M1", TO_WATCH);
+        movie2 = new Movie("M2", WATCHING);
+        movie3 = new Movie("M3", WATCHED);
     }
 
     @Test
     public void testConstructor() {
         assertEquals("M1", movie1.getMovieName());
         assertEquals(TO_WATCH, movie1.getMovieStatus());
+        assertEquals(Rating.NotCompleted.getNumRating(), movie1.getMovieRating());
     }
 
 }
