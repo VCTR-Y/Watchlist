@@ -23,7 +23,7 @@ public class MovieTest {
     public void testConstructor() {
         assertEquals("M1", movie1.getMovieName());
         assertEquals(TO_WATCH, movie1.getMovieStatus());
-        assertEquals(Rating.NotCompleted.getNumRating(), movie1.getMovieRating());
+        assertEquals(Rating.NOT_COMPLETED.getNumRating(), movie1.getMovieRating());
     }
 
 }

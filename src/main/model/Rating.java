@@ -1,7 +1,7 @@
 package model;
 
 public enum Rating {
-    NotCompleted(0),        // ASK ABOUT NAMING CONVENTION FOR THIS
+    NOT_COMPLETED(0),        // ASK ABOUT NAMING CONVENTION FOR THIS
     ONE(1),
     TWO(2),
     THREE(3),

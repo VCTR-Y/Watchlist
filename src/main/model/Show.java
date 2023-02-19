@@ -14,7 +14,21 @@ public class Show {
         this.episodes = showEpisodes;
         this.episodesWatched = showEpisodesWatched;
         this.status = showStatus;
-        this.rating = Rating.NotCompleted;
+        this.rating = Rating.NOT_COMPLETED;
+    }
+
+    // REQUIRES: !!!
+    // MODIFIES: This
+    // EFFECTS: Changes the status of the show to "WATCHING"
+    public void changeShowStatusToWatching() {
+        this.status = Status.WATCHING;
+    }
+
+    // REQUIRES: !!!
+    // MODIFIES: This
+    // EFFECTS: Changes the status of the show to "WATCHED"
+    public void changeShowStatusToWatched() {
+        this.status = Status.WATCHED;
     }
 
     // EFFECTS: returns the name of the show

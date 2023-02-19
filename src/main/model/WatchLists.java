@@ -37,14 +37,63 @@ public class WatchLists {
         }
     }
 
+    // REQUIRES: movie.getMovieStatus() == Status.TO_WATCH
+    // MODIFIES: ???
+    // EFFECTS: Remove a movie from "toWatchList", change its status to "WATCHING", and add to "watchingList"
+    public void moveMovieToWatchingList(Movie movie) {
+        toWatchList.remove(movie);
+        movie.changeMovieStatusToWatching();
+        addMovie(movie);
+    }
+
+    // REQUIRES movie.getMovieStatus() != Status.WATCHED
+    // MODIFIES: ???
+    // EFFECTS: Remove a movie from "toWatchList" or "watchingList", change its status to "WATCHED",
+    //          and add to "watchedList".
+    public void moveMovieToWatchedList(Movie movie) {
+        if (movie.getMovieStatus() == Status.TO_WATCH) {
+            toWatchList.remove(movie);
+        } else {
+            watchingList.remove(movie);
+        }
+        movie.changeMovieStatusToWatched();
+        addMovie(movie);
+    }
+
+    // EFFECTS: show.getShowStatus() == Status.TO_WATCH
+    // MODIFIES: ???
+    // EFFECTS: Remove a show from "toWatchList", change its status to "WATCHING" and add to "watchingList"
+    public void moveShowToWatchingList(Show show) {
+        toWatchList.remove(show);
+        show.changeShowStatusToWatching();
+        addShow(show);
+    }
+    
+    // REQUIRES: show.getShowStatus() != Status.WATCHED
+    // MODIFIES: ???
+    // EFFECTS: Remove a show from "toWatchList" or "watchingList", change its status to "WATCHED",
+    //         and add to "watchedList".
+    public void moveShowToWatchedList(Show show) {
+        if (show.getShowStatus() == Status.TO_WATCH) {
+            toWatchList.remove(show);
+        } else {
+            watchingList.remove(show);
+        }
+        show.changeShowStatusToWatched();
+        addShow(show);
+    }
+
+    // EFFECTS: returns the toWatchList
     public List<Object> getToWatchList() {
         return toWatchList;
     }
 
+    // EFFECTS: returns the watchingList
     public List<Object> getWatchingList() {
         return watchingList;
     }
 
+    // EFFECTS: returns the watchedList
     public List<Object> getWatchedList() {
         return watchedList;
     }
