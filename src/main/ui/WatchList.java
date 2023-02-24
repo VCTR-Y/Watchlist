@@ -35,6 +35,7 @@ public class WatchList {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: displays menu of options to user
     private void displayMainMenu() {
         System.out.println("\nWhat would you like to do?");
@@ -88,8 +89,8 @@ public class WatchList {
         } else {
             for (Object object : watchlist.getToWatchList()) {
                 if (object instanceof Show) {
-                    System.out.println(" - " + ((Show) object).getShowName() + " | Episodes: " +
-                            ((Show) object).getShowEpisodesWatched() + "/" + ((Show) object).getShowEpisodes());
+                    System.out.println(" - " + ((Show) object).getShowName() + " | Episodes: "
+                            + ((Show) object).getShowEpisodesWatched() + "/" + ((Show) object).getShowEpisodes());
                 } else if (object instanceof Movie) {
                     System.out.println(" - " + ((Movie) object).getMovieName());
                 }
@@ -105,8 +106,8 @@ public class WatchList {
         } else {
             for (Object object : watchlist.getWatchingList()) {
                 if (object instanceof Show) {
-                    System.out.println(" - " + ((Show) object).getShowName() + " | Episodes: " +
-                            ((Show) object).getShowEpisodesWatched() + "/" + ((Show) object).getShowEpisodes());
+                    System.out.println(" - " + ((Show) object).getShowName() + " | Episodes: "
+                            + ((Show) object).getShowEpisodesWatched() + "/" + ((Show) object).getShowEpisodes());
                 } else if (object instanceof Movie) {
                     System.out.println(" - " + ((Movie) object).getMovieName());
                 }
@@ -122,13 +123,13 @@ public class WatchList {
         } else {
             for (Object object : watchlist.getWatchedList()) {
                 if (object instanceof Show) {
-                    System.out.println(" - " + ((Show) object).getShowName() + " | Episodes: " +
-                            ((Show) object).getShowEpisodesWatched() + "/" +
-                            ((Show) object).getShowEpisodes() + " | Rating: " +
-                            ((Show) object).getShowRating() + "/" + "10");
+                    System.out.println(" - " + ((Show) object).getShowName() + " | Episodes: "
+                            + ((Show) object).getShowEpisodesWatched() + "/"
+                            + ((Show) object).getShowEpisodes() + " | Rating: "
+                            + ((Show) object).getShowRating() + "/" + "10");
                 } else if (object instanceof Movie) {
-                    System.out.println(" - " + ((Movie) object).getMovieName() + " | Rating: " +
-                            ((Movie) object).getMovieRating() + "/" + "10");
+                    System.out.println(" - " + ((Movie) object).getMovieName() + " | Rating: "
+                            + ((Movie) object).getMovieRating() + "/" + "10");
                 }
             }
         }
@@ -196,15 +197,12 @@ public class WatchList {
 
     // REQUIRES: this.status == TO_WATCH
     // MODIFIES: this
-    // EFFECTS: Changes the status of a To Watch show/movie to either Watching or Watched
+    // EFFECTS: Changes the status of a TO_WATCH show/movie to either WATCHING or WATCHED
     private void changeToWatchStatus() {
         if (watchlist.getToWatchList().size() == 0) {
             System.out.println("There are currently no movies/shows in this list");
         } else {
             displayToWatchMenu();
-            System.out.println("What's the index of the show/movie you'd like to change?");
-            int index = input.nextInt();
-            Object change = watchlist.getToWatchList().get(index);
             String selection = "";
             while (!(selection.equals("w") || selection.equals("wd"))) {
                 System.out.println("Would you like to update its status to Watching or Watched?");
@@ -215,28 +213,46 @@ public class WatchList {
             }
 
             if (selection.equals("w")) {
-                if (change instanceof Show) {
-                    System.out.println("How many episodes have you watched?");
-                    int episodes = input.nextInt();
-                    ((Show) change).changeEpisodesWatched(episodes);
-                    watchlist.moveShowToWatchingList((Show) change);
-                } else if (change instanceof Movie) {
-                    watchlist.moveMovieToWatchingList((Movie) change);
-                }
+                changeToWatchToWatching();
             } else {
-                if (change instanceof Show) {
-                    ((Show) change).changeEpisodesWatched(((Show) change).getShowEpisodes());
-                    System.out.println("What is your rating for this show from 1-10?");
-                    int rating = input.nextInt();
-                    ((Show) change).changeShowRating(rating);
-                    watchlist.moveShowToWatchedList((Show) change);
-                } else if (change instanceof Movie) {
-                    System.out.println("What is your rating for this show from 1-10?");
-                    int rating = input.nextInt();
-                    ((Movie) change).changeMovieRating(rating);
-                    watchlist.moveMovieToWatchedList((Movie) change);
-                }
+                changeToWatchToWatched();
             }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Changes the status of a TO_WATCH show/movie to WATCHING
+    private void changeToWatchToWatching() {
+        System.out.println("What's the index of the show/movie you'd like to change?");
+        int index = input.nextInt();
+        Object change = watchlist.getToWatchList().get(index);
+        if (change instanceof Show) {
+            System.out.println("How many episodes have you watched?");
+            int episodes = input.nextInt();
+            ((Show) change).changeEpisodesWatched(episodes);
+            watchlist.moveShowToWatchingList((Show) change);
+        } else if (change instanceof Movie) {
+            watchlist.moveMovieToWatchingList((Movie) change);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Changes the status of a TO_WATCH show/movie to WATCHED
+    private void changeToWatchToWatched() {
+        System.out.println("What's the index of the show/movie you'd like to change?");
+        int index = input.nextInt();
+        Object change = watchlist.getToWatchList().get(index);
+        if (change instanceof Show) {
+            ((Show) change).changeEpisodesWatched(((Show) change).getShowEpisodes());
+            System.out.println("What is your rating for this show from 1-10?");
+            int rating = input.nextInt();
+            ((Show) change).changeShowRating(rating);
+            watchlist.moveShowToWatchedList((Show) change);
+        } else if (change instanceof Movie) {
+            System.out.println("What is your rating for this show from 1-10?");
+            int rating = input.nextInt();
+            ((Movie) change).changeMovieRating(rating);
+            watchlist.moveMovieToWatchedList((Movie) change);
         }
     }
 
@@ -261,25 +277,55 @@ public class WatchList {
             }
 
             if (selection.equals("e")) {
-                if (change instanceof Show) {
-                    System.out.println("How many episodes have you watched?");
-                    int episodes = input.nextInt();
-                    ((Show) change).changeEpisodesWatched(episodes);
-                }
+                changeWatchingEpisodes();
             } else if (selection.equals("s")) {
-                if (change instanceof Show) {
-                    System.out.println("What is your rating for this show from 1-10?");
-                    int rating = input.nextInt();
-                    ((Show) change).changeShowRating(rating);
-                    ((Show) change).changeEpisodesWatched(((Show) change).getShowEpisodes());
-                    watchlist.moveShowToWatchedList((Show) change);
-                } else if (change instanceof Movie) {
-                    System.out.println("What is your rating for this movie from 1-10?");
-                    int rating = input.nextInt();
-                    ((Movie) change).changeMovieRating(rating);
-                    watchlist.moveMovieToWatchedList((Movie) change);
-                }
+                changeWatchingToWatched();
             }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Changes the amount of episodes watched for a WATCHING show
+    private void changeWatchingEpisodes() {
+        System.out.println("What's the index of the show/movie you'd like to change?");
+        int index = input.nextInt();
+        Object change = watchlist.getWatchingList().get(index);
+        if (change instanceof Show) {
+            System.out.println("How many episodes have you watched?");
+            int episodes = input.nextInt();
+            ((Show) change).changeEpisodesWatched(episodes);
+            if (change instanceof Show) {
+                System.out.println("What is your rating for this show from 1-10?");
+                int rating = input.nextInt();
+                ((Show) change).changeShowRating(rating);
+                ((Show) change).changeEpisodesWatched(((Show) change).getShowEpisodes());
+                watchlist.moveShowToWatchedList((Show) change);
+            } else if (change instanceof Movie) {
+                System.out.println("What is your rating for this movie from 1-10?");
+                int rating = input.nextInt();
+                ((Movie) change).changeMovieRating(rating);
+                watchlist.moveMovieToWatchedList((Movie) change);
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Changes a show with WATCHING status to WATCHED status
+    private void changeWatchingToWatched() {
+        System.out.println("What's the index of the show/movie you'd like to change?");
+        int index = input.nextInt();
+        Object change = watchlist.getWatchingList().get(index);
+        if (change instanceof Show) {
+            System.out.println("What is your rating for this show from 1-10?");
+            int rating = input.nextInt();
+            ((Show) change).changeShowRating(rating);
+            ((Show) change).changeEpisodesWatched(((Show) change).getShowEpisodes());
+            watchlist.moveShowToWatchedList((Show) change);
+        } else if (change instanceof Movie) {
+            System.out.println("What is your rating for this movie from 1-10?");
+            int rating = input.nextInt();
+            ((Movie) change).changeMovieRating(rating);
+            watchlist.moveMovieToWatchedList((Movie) change);
         }
     }
 
@@ -297,32 +343,50 @@ public class WatchList {
         }
 
         if (selection.equals("tw")) {
-            System.out.println("What is the name of the movie?");
-            input.nextLine();
-            String movieName = input.nextLine();
-            Movie movie = new Movie(movieName, Status.TO_WATCH);
-            watchlist.addMovie(movie);
-            System.out.println("Movie was successfully added!");
+            makeNewToWatchMovie();
         } else if (selection.equals("w")) {
-            System.out.println("What is the name of the movie?");
-            input.nextLine();
-            String movieName = input.nextLine();
-            Movie movie = new Movie(movieName, Status.WATCHING);
-            watchlist.addMovie(movie);
-            System.out.println("Movie was successfully added!");
+            makeNewWatchingMovie();
         } else if (selection.equals("wd")) {
-            System.out.println("What is the name of the movie?");
-            input.nextLine();
-            String movieName = input.nextLine();
-            Movie movie = new Movie(movieName, Status.WATCHED);
-            System.out.println("What is your rating for this movie from 1-10?");
-            int rating = input.nextInt();
-            movie.changeMovieRating(rating);
-            watchlist.addMovie(movie);
-            System.out.println("Movie was successfully added!");
+            makeNewWatchedMovie();
         } else {
             displayMainMenu();
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Makes a new show with TO_WATCH status and adds it to the correct list
+    private void makeNewToWatchMovie() {
+        System.out.println("What is the name of the movie?");
+        input.nextLine();
+        String movieName = input.nextLine();
+        Movie movie = new Movie(movieName, Status.TO_WATCH);
+        watchlist.addMovie(movie);
+        System.out.println("Movie was successfully added!");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Makes a new movie with WATCHING status and adds it to the correct list
+    private void makeNewWatchingMovie() {
+        System.out.println("What is the name of the movie?");
+        input.nextLine();
+        String movieName = input.nextLine();
+        Movie movie = new Movie(movieName, Status.WATCHING);
+        watchlist.addMovie(movie);
+        System.out.println("Movie was successfully added!");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Makes a new movie with WATCHED status and adds it to the correct list
+    private void makeNewWatchedMovie() {
+        System.out.println("What is the name of the movie?");
+        input.nextLine();
+        String movieName = input.nextLine();
+        Movie movie = new Movie(movieName, Status.WATCHED);
+        System.out.println("What is your rating for this movie from 1-10?");
+        int rating = input.nextInt();
+        movie.changeMovieRating(rating);
+        watchlist.addMovie(movie);
+        System.out.println("Movie was successfully added!");
     }
 
     // MODIFIES: this
@@ -339,39 +403,58 @@ public class WatchList {
         }
 
         if (selection.equals("tw")) {
-            System.out.println("What is the name of the show?");
-            input.nextLine();
-            String showName = input.nextLine();
-            System.out.println("How many episodes does the show have?");
-            int showEpisodes = input.nextInt();
-            Show show = new Show(showName, showEpisodes, 0, Status.TO_WATCH);
-            watchlist.addShow(show);
-            System.out.println("Show was successfully added!");
+            makeNewToWatchShow();
         } else if (selection.equals("w")) {
-            System.out.println("What is the name of the show?");
-            input.nextLine();
-            String showName = input.nextLine();
-            System.out.println("How many episodes does the show have?");
-            int showEpisodes = input.nextInt();
-            System.out.println("How many episodes have you watched?");
-            int showEpisodesWatched = input.nextInt();
-            Show show = new Show(showName, showEpisodes, showEpisodesWatched, Status.WATCHING);
-            watchlist.addShow(show);
-            System.out.println("Show was successfully added!");
+            makeNewWatchingShow();
         } else if (selection.equals("wd")) {
-            System.out.println("What is the name of the show?");
-            input.nextLine();
-            String showName = input.nextLine();
-            System.out.println("How many episodes does the show have?");
-            int showEpisodes = input.nextInt();
-            Show show = new Show(showName, showEpisodes, showEpisodes, Status.WATCHED);
-            System.out.println("What is your rating for this show from 1-10?");
-            int rating = input.nextInt();
-            show.changeShowRating(rating);
-            watchlist.addShow(show);
-            System.out.println("Show was successfully added!");
+            makeNewWatchedShow();
         } else {
             displayMainMenu();
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Makes a new show with TO_WATCH status and adds it to the correct list
+    private void makeNewToWatchShow() {
+        System.out.println("What is the name of the show?");
+        input.nextLine();
+        String showName = input.nextLine();
+        System.out.println("How many episodes does the show have?");
+        int showEpisodes = input.nextInt();
+        Show show = new Show(showName, showEpisodes, 0, Status.TO_WATCH);
+        watchlist.addShow(show);
+        System.out.println("Show was successfully added!");
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Makes a new show with WATCHING status and adds it to the correct list
+    private void makeNewWatchingShow() {
+        System.out.println("What is the name of the show?");
+        input.nextLine();
+        String showName = input.nextLine();
+        System.out.println("How many episodes does the show have?");
+        int showEpisodes = input.nextInt();
+        System.out.println("How many episodes have you watched?");
+        int showEpisodesWatched = input.nextInt();
+        Show show = new Show(showName, showEpisodes, showEpisodesWatched, Status.WATCHING);
+        watchlist.addShow(show);
+        System.out.println("Show was successfully added!");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Makes a new show with WATCHED status and adds it to the correct list
+    private void makeNewWatchedShow() {
+        System.out.println("What is the name of the show?");
+        input.nextLine();
+        String showName = input.nextLine();
+        System.out.println("How many episodes does the show have?");
+        int showEpisodes = input.nextInt();
+        Show show = new Show(showName, showEpisodes, showEpisodes, Status.WATCHED);
+        System.out.println("What is your rating for this show from 1-10?");
+        int rating = input.nextInt();
+        show.changeShowRating(rating);
+        watchlist.addShow(show);
+        System.out.println("Show was successfully added!");
     }
 }
