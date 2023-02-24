@@ -5,29 +5,32 @@ public class Movie {
 
     private String name;
     private Status status;
-    private Rating rating;
+    private int rating;
 
     public Movie(String movieName, Status movieStatus) {
         this.name = movieName;
         this.status = movieStatus;
-        this.rating = Rating.NOT_COMPLETED;
+        this.rating = 0;
     }
 
-    // REQUIRES: !!!
+    // REQUIRES: this.status == TO_WATCH
     // MODIFIES: This
     // EFFECTS: Changes the status of the movie to "WATCHING"
     public void changeMovieStatusToWatching() {
         this.status = Status.WATCHING;
     }
 
-    // REQUIRES: !!!
+    // REQUIRES: this.status == TO_WATCH || this.status == WATCHING
     // MODIFIES: This
     // EFFECTS: Changes the status of the movie to "WATCHED"
     public void changeMovieStatusToWatched() {
         this.status = Status.WATCHED;
     }
 
-    public void changeMovieRating(Rating rating) {
+    // REQUIRES: rating is a value from 1-10
+    // MODIFIES: This
+    // EFFECTS: Changes the rating of the movie
+    public void changeMovieRating(int rating) {
         this.rating = rating;
     }
 
@@ -43,6 +46,6 @@ public class Movie {
 
     // EFFECTS: returns the rating of the movie
     public int getMovieRating() {
-        return rating.getNumRating();
+        return rating;
     }
 }

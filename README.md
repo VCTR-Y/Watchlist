@@ -23,5 +23,5 @@ I'm sure there are many other people who have a similar problem too.
 - As a user, I want to be able to change the status of a show/movie
 - As a user, I want to be able to sort my watchlist by their status
 - As a user, I want to be able to keep track of where I left off for **Watching** shows and movies
-- As a user, I want to be able to leave a rating and comment for **Watched** shows and movies
+- As a user, I want to be able to leave a rating for **Watched** shows and movies
 

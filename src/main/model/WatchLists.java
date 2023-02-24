@@ -15,6 +15,7 @@ public class WatchLists {
         watchedList = new ArrayList<>();
     }
 
+
     // EFFECTS: adds a movie to a watchlist
     public void addMovie(Movie movie) {
         if (movie.getMovieStatus() == Status.TO_WATCH) {
@@ -38,7 +39,7 @@ public class WatchLists {
     }
 
     // REQUIRES: movie.getMovieStatus() == Status.TO_WATCH
-    // MODIFIES: ???
+    // MODIFIES: This
     // EFFECTS: Remove a movie from "toWatchList", change its status to "WATCHING", and add to "watchingList"
     public void moveMovieToWatchingList(Movie movie) {
         toWatchList.remove(movie);
@@ -47,7 +48,7 @@ public class WatchLists {
     }
 
     // REQUIRES movie.getMovieStatus() != Status.WATCHED
-    // MODIFIES: ???
+    // MODIFIES: This
     // EFFECTS: Remove a movie from "toWatchList" or "watchingList", change its status to "WATCHED",
     //          and add to "watchedList".
     public void moveMovieToWatchedList(Movie movie) {
@@ -61,7 +62,7 @@ public class WatchLists {
     }
 
     // EFFECTS: show.getShowStatus() == Status.TO_WATCH
-    // MODIFIES: ???
+    // MODIFIES: This
     // EFFECTS: Remove a show from "toWatchList", change its status to "WATCHING" and add to "watchingList"
     public void moveShowToWatchingList(Show show) {
         toWatchList.remove(show);
@@ -70,7 +71,7 @@ public class WatchLists {
     }
     
     // REQUIRES: show.getShowStatus() != Status.WATCHED
-    // MODIFIES: ???
+    // MODIFIES: This
     // EFFECTS: Remove a show from "toWatchList" or "watchingList", change its status to "WATCHED",
     //         and add to "watchedList".
     public void moveShowToWatchedList(Show show) {

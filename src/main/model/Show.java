@@ -7,28 +7,39 @@ public class Show {
     private int episodes;
     private int episodesWatched;
     private Status status;
-    private Rating rating;
+    private int rating;
 
     public Show(String showName, int showEpisodes, int showEpisodesWatched, Status showStatus) {
         this.name = showName;
         this.episodes = showEpisodes;
         this.episodesWatched = showEpisodesWatched;
         this.status = showStatus;
-        this.rating = Rating.NOT_COMPLETED;
+        this.rating = 0;
     }
 
-    // REQUIRES: !!!
+    // REQUIRES: this.status == TO_WATCH
     // MODIFIES: This
     // EFFECTS: Changes the status of the show to "WATCHING"
     public void changeShowStatusToWatching() {
         this.status = Status.WATCHING;
     }
 
-    // REQUIRES: !!!
+    // REQUIRES: this.status == TO_WATCH || this.status == WATCHING
     // MODIFIES: This
     // EFFECTS: Changes the status of the show to "WATCHED"
     public void changeShowStatusToWatched() {
         this.status = Status.WATCHED;
+    }
+
+    // REQUIRES: rating is a value from 1-10
+    // MODIFIES: This
+    // EFFECTS: Changes the rating of the show
+    public void changeShowRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void changeEpisodesWatched(int episodesWatched) {
+        this.episodesWatched = episodesWatched;
     }
 
     // EFFECTS: returns the name of the show
@@ -52,6 +63,6 @@ public class Show {
 
     // EFFECTS: returns the rating of the show
     public int getShowRating() {
-        return rating.getNumRating();
+        return rating;
     }
 }

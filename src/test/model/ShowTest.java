@@ -27,4 +27,33 @@ public class ShowTest {
         assertEquals(TO_WATCH, show1.getShowStatus());
         assertEquals(Rating.NOT_COMPLETED.getNumRating(), show1.getShowRating());
     }
+
+    @Test
+    public void testChangeShowStatusToWatching() {
+        show1.changeShowStatusToWatching();
+        assertEquals(WATCHING, show1.getShowStatus());
+    }
+
+    @Test
+    public void testChangeShowStatusToWatched() {
+        show1.changeShowStatusToWatched();
+        show2.changeShowStatusToWatched();
+        assertEquals(WATCHED, show1.getShowStatus());
+        assertEquals(WATCHED, show2.getShowStatus());
+    }
+
+    @Test
+    public void testChangeShowRating() {
+        show1.changeShowStatusToWatched();
+        show1.changeShowRating(5);
+        assertEquals(5, show1.getShowRating());
+        show1.changeShowRating(9);
+        assertEquals(9, show1.getShowRating());
+    }
+
+    @Test
+    public void testChangeEpisodesWatched() {
+        show1.changeEpisodesWatched(9);
+        assertEquals(9, show1.getShowEpisodesWatched());
+    }
 }
