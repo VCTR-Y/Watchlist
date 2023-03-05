@@ -179,7 +179,7 @@ public class WatchList {
     private void displayChangeStatusMenu() {
         String selection = "";
         while (!(selection.equals("tw") || selection.equals("w") || selection.equals("wd") || selection.equals("b"))) {
-            System.out.println("What is the current status of the show/movie you'd like to change?");
+            System.out.println("What is the current status of the show/movie you'd like to modify?");
             System.out.println("\ttw -> ToWatch");
             System.out.println("\tw -> Watching");
             System.out.println("\tb -> Back");
@@ -264,9 +264,6 @@ public class WatchList {
             System.out.println("There are currently no movies/shows in this list");
         } else {
             displayWatchingMenu();
-            System.out.println("What's the index of the show/movie you'd like to change?");
-            int index = input.nextInt();
-            Object change = watchlist.getWatchingList().get(index);
             String selection = "";
             while (!(selection.equals("e") || selection.equals("s"))) {
                 System.out.println("Do you want to update episodes or update status?");
@@ -287,25 +284,13 @@ public class WatchList {
     // MODIFIES: this
     // EFFECTS: Changes the amount of episodes watched for a WATCHING show
     private void changeWatchingEpisodes() {
-        System.out.println("What's the index of the show/movie you'd like to change?");
+        System.out.println("What's the index of the show you'd like to change?");
         int index = input.nextInt();
         Object change = watchlist.getWatchingList().get(index);
         if (change instanceof Show) {
             System.out.println("How many episodes have you watched?");
             int episodes = input.nextInt();
             ((Show) change).changeEpisodesWatched(episodes);
-            if (change instanceof Show) {
-                System.out.println("What is your rating for this show from 1-10?");
-                int rating = input.nextInt();
-                ((Show) change).changeShowRating(rating);
-                ((Show) change).changeEpisodesWatched(((Show) change).getShowEpisodes());
-                watchlist.moveShowToWatchedList((Show) change);
-            } else if (change instanceof Movie) {
-                System.out.println("What is your rating for this movie from 1-10?");
-                int rating = input.nextInt();
-                ((Movie) change).changeMovieRating(rating);
-                watchlist.moveMovieToWatchedList((Movie) change);
-            }
         }
     }
 

@@ -84,6 +84,30 @@ public class WatchLists {
         addShow(show);
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes a movie from a watchlist
+    public void removeMovie(Movie movie) {
+        if (movie.getMovieStatus() == Status.TO_WATCH) {
+            toWatchList.remove(movie);
+        } else if (movie.getMovieStatus() == Status.WATCHING) {
+            watchingList.remove(movie);
+        } else {
+            watchedList.remove(movie);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes a show from a watchlist
+    public void removeShow(Show show) {
+        if (show.getShowStatus() == Status.TO_WATCH) {
+            toWatchList.remove(show);
+        } else if (show.getShowStatus() == Status.WATCHING) {
+            watchingList.remove(show);
+        } else {
+            watchedList.remove(show);
+        }
+    }
+
     // EFFECTS: returns the toWatchList
     public List<Object> getToWatchList() {
         return toWatchList;
