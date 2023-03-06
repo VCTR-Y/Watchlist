@@ -71,11 +71,11 @@ public class WatchList {
         }
 
         if (selection.equals("tw")) {
-            displayToWatchMenu();
+            displayToWatchList();
         } else if (selection.equals("w")) {
-            displayWatchingMenu();
+            displayWatchingList();
         } else if (selection.equals("wd")) {
-            displayWatchedMenu();
+            displayWatchedList();
         } else {
             displayMainMenu();
         }
@@ -83,7 +83,7 @@ public class WatchList {
 
     // MODIFIES: this
     // EFFECTS: prints out the shows and movies in the to watch list
-    private void displayToWatchMenu() {
+    private void displayToWatchList() {
         if (watchlist.getToWatchList().size() == 0) {
             System.out.println("There are currently no movies/shows in this list");
         } else {
@@ -100,7 +100,7 @@ public class WatchList {
 
     // MODIFIES: this
     // EFFECTS: prints out the shows and movies in the watching list
-    private void displayWatchingMenu() {
+    private void displayWatchingList() {
         if (watchlist.getWatchingList().size() == 0) {
             System.out.println("There are currently no movies/shows in this list");
         } else {
@@ -117,7 +117,7 @@ public class WatchList {
 
     // MODIFIES: this
     // EFFECTS: prints out the shows and movies in the watched list
-    private void displayWatchedMenu() {
+    private void displayWatchedList() {
         if (watchlist.getWatchedList().size() == 0) {
             System.out.println("There are currently no movies/shows in this list");
         } else {
@@ -139,10 +139,12 @@ public class WatchList {
     // EFFECTS: displays a menu of modify options
     private void displayModifyMenu() {
         String selection = "";
-        while (!(selection.equals("am") || selection.equals("as") || selection.equals("ch") || selection.equals("b"))) {
+        while (!(selection.equals("am") || selection.equals("as") || selection.equals("ch") || selection.equals("rm")
+                || selection.equals("b"))) {
             System.out.println("Would you like to do with your WatchList?");
             System.out.println("\tam -> Add a movie");
             System.out.println("\tas -> Add a show");
+            System.out.println("\trm -> Remove a show/movie");
             System.out.println("\tch -> Modify a show/movie");
             System.out.println("\tb -> Back");
             selection = input.next();
@@ -153,6 +155,8 @@ public class WatchList {
             displayMovieMenu();
         } else if (selection.equals("as")) {
             displayShowMenu();
+        } else if (selection.equals("rm")) {
+            displayRemoveMenu();
         } else if (selection.equals("ch")) {
             displayChangeStatusMenu();
         } else {
@@ -172,6 +176,76 @@ public class WatchList {
     private void displayShowMenu() {
         System.out.println("What is the status of your show?");
         chooseShowStatus();
+    }
+
+    private void displayRemoveMenu() {
+        String selection = "";
+        while (!(selection.equals("tw") || selection.equals("w") || selection.equals("wd") || selection.equals("b"))) {
+            System.out.println("What is the current status of the show/movie you'd like to remove?");
+            System.out.println("\ttw -> ToWatch");
+            System.out.println("\tw -> Watching");
+            System.out.println("\twd -> Watched");
+            System.out.println("\tb -> Back");
+            selection = input.next();
+            selection = selection.toLowerCase();
+        }
+        if (selection.equals("tw")) {
+            removeToWatch();
+        } else if (selection.equals("w")) {
+            removeWatching();
+        } else if (selection.equals("wd")) {
+            removeWatched();
+        } else {
+            displayModifyMenu();
+        }
+    }
+
+    private void removeToWatch() {
+        if (watchlist.getToWatchList().size() == 0) {
+            System.out.println("There are currently no movies/shows in this list");
+        } else {
+            displayToWatchList();
+            System.out.println("What is the index of the show/movie you'd like to remove?");
+            int index = input.nextInt();
+            Object remove = watchlist.getToWatchList().get(index);
+            if (remove instanceof Show) {
+                watchlist.removeShow((Show) remove);
+            } else {
+                watchlist.removeMovie((Movie) remove);
+            }
+        }
+    }
+
+    private void removeWatching() {
+        if (watchlist.getToWatchList().size() == 0) {
+            System.out.println("There are currently no movies/shows in this list");
+        } else {
+            displayWatchingList();
+            System.out.println("What is the index of the show/movie you'd like to remove?");
+            int index = input.nextInt();
+            Object remove = watchlist.getWatchingList().get(index);
+            if (remove instanceof Show) {
+                watchlist.removeShow((Show) remove);
+            } else {
+                watchlist.removeMovie((Movie) remove);
+            }
+        }
+    }
+
+    private void removeWatched() {
+        if (watchlist.getToWatchList().size() == 0) {
+            System.out.println("There are currently no movies/shows in this list");
+        } else {
+            displayWatchedList();
+            System.out.println("What is the index of the show/movie you'd like to remove?");
+            int index = input.nextInt();
+            Object remove = watchlist.getWatchedList().get(index);
+            if (remove instanceof Show) {
+                watchlist.removeShow((Show) remove);
+            } else {
+                watchlist.removeMovie((Movie) remove);
+            }
+        }
     }
 
     // MODIFIES: this
@@ -202,7 +276,7 @@ public class WatchList {
         if (watchlist.getToWatchList().size() == 0) {
             System.out.println("There are currently no movies/shows in this list");
         } else {
-            displayToWatchMenu();
+            displayToWatchList();
             String selection = "";
             while (!(selection.equals("w") || selection.equals("wd"))) {
                 System.out.println("Would you like to update its status to Watching or Watched?");
@@ -263,7 +337,7 @@ public class WatchList {
         if (watchlist.getWatchingList().size() == 0) {
             System.out.println("There are currently no movies/shows in this list");
         } else {
-            displayWatchingMenu();
+            displayWatchingList();
             String selection = "";
             while (!(selection.equals("e") || selection.equals("s"))) {
                 System.out.println("Do you want to update episodes or update status?");
