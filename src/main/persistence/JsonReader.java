@@ -52,7 +52,7 @@ public class JsonReader {
     // MODIFIES: wl
     // EFFECTS: parses movies from JSON object and adds them to watchlists
     private void addShowAndMovies(WatchLists wl, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("to watch list");
+        JSONArray jsonArray = jsonObject.getJSONArray("watchlist");
         for (Object json : jsonArray) {
             if (json instanceof Show) {
                 JSONObject nextShow = (JSONObject) json;

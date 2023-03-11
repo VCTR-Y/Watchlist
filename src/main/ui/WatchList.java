@@ -14,10 +14,12 @@ import java.util.Scanner;
 // WatchList Application
 public class WatchList {
     private static final String JSON_STORE = "./data/watchlist.json";
+
     private WatchLists watchlist;
     private Scanner input;
-    private JsonWriter jsonWriter;
+
     private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
     public WatchList() {
         jsonReader = new JsonReader(JSON_STORE);

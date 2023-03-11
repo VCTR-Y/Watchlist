@@ -9,7 +9,6 @@ import java.util.List;
 
 public class WatchLists implements Writable {
 
-
     private List<Object> toWatchList;
     private List<Object> watchingList;
     private List<Object> watchedList;
@@ -19,7 +18,6 @@ public class WatchLists implements Writable {
         watchingList = new ArrayList<>();
         watchedList = new ArrayList<>();
     }
-
 
     // EFFECTS: adds a movie to a watchlist
     public void addMovie(Movie movie) {
@@ -131,21 +129,26 @@ public class WatchLists implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("to watch list", toWatchToJson());
+        JSONArray out = new JSONArray();
+        JSONObject outer = new JSONObject();
+        json.put("towatch list", toWatchToJson());
         json.put("watching list", watchingToJson());
         json.put("watched list", watchedToJson());
-        return json;
+        out.put(json);
+        outer.put("watchlist", out);
+        return outer;
     }
 
     private JSONArray toWatchToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Object o : toWatchList) {
-            if (o instanceof Show) {
-                jsonArray.put(((Show) o).toJson());
-            } else if (o instanceof Movie) {
-                jsonArray.put(((Movie) o).toJson());
-            }
+            jsonArray.put(o.toString());
+//            if (o instanceof Show) {
+//                jsonArray.put(((Show) o).toJson());
+//            } else if (o instanceof Movie) {
+//                jsonArray.put(((Movie) o).toJson());
+//            }
         }
         return jsonArray;
     }
