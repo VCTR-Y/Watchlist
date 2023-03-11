@@ -4,14 +4,24 @@ import model.Movie;
 import model.Show;
 import model.Status;
 import model.WatchLists;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // WatchList Application
 public class WatchList {
+    private static final String JSON_STORE = "./data/watchlist.json";
     private WatchLists watchlist;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     public WatchList() {
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
         runWatchList();
     }
 
@@ -41,6 +51,8 @@ public class WatchList {
         System.out.println("\nWhat would you like to do?");
         System.out.println("\tv -> View my WatchList");
         System.out.println("\tm -> Modify my WatchList");
+        System.out.println("\ts -> Save my WatchList");
+        System.out.println("\tl -> Load my WatchList");
         System.out.println("\tq -> Quit");
     }
 
@@ -51,8 +63,12 @@ public class WatchList {
             displayViewMenu();
         } else if (command.equals("m")) {
             displayModifyMenu();
+        } else if (command.equals("s")) {
+            saveWatchList();
+        } else if (command.equals("l")) {
+            loadWatchList();
         } else {
-            System.out.println("Invalid selection");
+            System.out.println("Invalid Selection");
         }
     }
 
@@ -161,6 +177,26 @@ public class WatchList {
             displayChangeStatusMenu();
         } else {
             displayMainMenu();
+        }
+    }
+
+    private void saveWatchList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(watchlist);
+            jsonWriter.close();
+            System.out.println("Saved WatchList to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write from file: " + JSON_STORE);
+        }
+    }
+
+    private void loadWatchList() {
+        try {
+            watchlist = jsonReader.read();
+            System.out.println("Loaded Watchlist from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 

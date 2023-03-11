@@ -1,9 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class WatchLists {
+public class WatchLists implements Writable {
+
 
     private List<Object> toWatchList;
     private List<Object> watchingList;
@@ -121,5 +126,53 @@ public class WatchLists {
     // EFFECTS: returns the watchedList
     public List<Object> getWatchedList() {
         return watchedList;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("to watch list", toWatchToJson());
+        json.put("watching list", watchingToJson());
+        json.put("watched list", watchedToJson());
+        return json;
+    }
+
+    private JSONArray toWatchToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Object o : toWatchList) {
+            if (o instanceof Show) {
+                jsonArray.put(((Show) o).toJson());
+            } else if (o instanceof Movie) {
+                jsonArray.put(((Movie) o).toJson());
+            }
+        }
+        return jsonArray;
+    }
+
+    private JSONArray watchingToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Object o : watchingList) {
+            if (o instanceof Show) {
+                jsonArray.put(((Show) o).toJson());
+            } else if (o instanceof Movie) {
+                jsonArray.put(((Movie) o).toJson());
+            }
+        }
+        return jsonArray;
+    }
+
+    private JSONArray watchedToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Object o : watchedList) {
+            if (o instanceof Show) {
+                jsonArray.put(((Show) o).toJson());
+            } else if (o instanceof Movie) {
+                jsonArray.put(((Movie) o).toJson());
+            }
+        }
+        return jsonArray;
     }
 }

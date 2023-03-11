@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a show having a name, episodes, number of episodes watched, status, and rating
-public class Show {
+public class Show implements Writable {
 
     private String name;
     private int episodes;
@@ -64,5 +67,15 @@ public class Show {
     // EFFECTS: returns the rating of the show
     public int getShowRating() {
         return rating;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("episodes", episodes);
+        json.put("episodes watched", episodesWatched);
+        json.put("status", status);
+        return json;
     }
 }

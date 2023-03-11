@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a movie having a name, status, and rating
-public class Movie {
+public class Movie implements Writable {
 
     private String name;
     private Status status;
@@ -47,5 +50,13 @@ public class Movie {
     // EFFECTS: returns the rating of the movie
     public int getMovieRating() {
         return rating;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("status", status);
+        return json;
     }
 }
