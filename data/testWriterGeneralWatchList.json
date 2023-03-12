@@ -1,19 +1,44 @@
 {
-    "watched": [{
-        "name": "Spiderman",
-        "rating": 9,
-        "status": "WATCHED"
-    }],
-    "towatch": [{
-        "name": "Batman",
-        "rating": 0,
-        "status": "TO_WATCH"
-    }],
-    "watching": [{
-        "episodes watched": 5,
-        "name": "Squid Game",
-        "rating": 0,
-        "episodes": 9,
-        "status": "WATCHING"
-    }]
+    "watched": [
+        {
+            "name": "Spiderman",
+            "rating": 9,
+            "status": "WATCHED"
+        },
+        {
+            "episodes watched": 8,
+            "name": "Stranger Things",
+            "rating": 8,
+            "episodes": 8,
+            "status": "WATCHED"
+        }
+    ],
+    "towatch": [
+        {
+            "name": "Batman",
+            "rating": 0,
+            "status": "TO_WATCH"
+        },
+        {
+            "episodes watched": 0,
+            "name": "Breaking Bad",
+            "rating": 0,
+            "episodes": 62,
+            "status": "TO_WATCH"
+        }
+    ],
+    "watching": [
+        {
+            "name": "Iron Man",
+            "rating": 0,
+            "status": "WATCHING"
+        },
+        {
+            "episodes watched": 5,
+            "name": "Squid Game",
+            "rating": 0,
+            "episodes": 9,
+            "status": "WATCHING"
+        }
+    ]
 }
