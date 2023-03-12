@@ -141,7 +141,7 @@ public class WatchLists implements Writable {
         for (Object o : toWatchList) {
             if (o instanceof Show) {
                 jsonArray.put(((Show) o).toJson());
-            } else if (o instanceof Movie) {
+            } else {
                 jsonArray.put(((Movie) o).toJson());
             }
         }
@@ -154,7 +154,7 @@ public class WatchLists implements Writable {
         for (Object o : watchingList) {
             if (o instanceof Show) {
                 jsonArray.put(((Show) o).toJson());
-            } else if (o instanceof Movie) {
+            } else {
                 jsonArray.put(((Movie) o).toJson());
             }
         }
@@ -167,7 +167,7 @@ public class WatchLists implements Writable {
         for (Object o : watchedList) {
             if (o instanceof Show) {
                 jsonArray.put(((Show) o).toJson());
-            } else if (o instanceof Movie) {
+            } else {
                 jsonArray.put(((Movie) o).toJson());
             }
         }
