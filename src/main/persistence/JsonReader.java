@@ -54,12 +54,11 @@ public class JsonReader {
     private void addToWatch(WatchLists wl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("towatch");
         for (Object json : jsonArray) {
-            if (json instanceof Show) {
-                JSONObject nextShow = (JSONObject) json;
-                addShow(wl, nextShow);
-            } else if (json instanceof Movie) {
-                JSONObject nextMovie = (JSONObject) json;
-                addMovie(wl, nextMovie);
+            JSONObject next = (JSONObject) json;
+            if (next.has("episodes")) {
+                addShow(wl, next);
+            } else {
+                addMovie(wl, next);
             }
         }
     }
@@ -67,12 +66,11 @@ public class JsonReader {
     private void addWatching(WatchLists wl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("watching");
         for (Object json : jsonArray) {
-            if (json instanceof Show) {
-                JSONObject nextShow = (JSONObject) json;
-                addShow(wl, nextShow);
-            } else if (json instanceof Movie) {
-                JSONObject nextMovie = (JSONObject) json;
-                addMovie(wl, nextMovie);
+            JSONObject next = (JSONObject) json;
+            if (next.has("episodes")) {
+                addShow(wl, next);
+            } else {
+                addMovie(wl, next);
             }
         }
     }
@@ -80,12 +78,11 @@ public class JsonReader {
     private void addWatched(WatchLists wl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("watched");
         for (Object json : jsonArray) {
-            if (json instanceof Show) {
-                JSONObject nextShow = (JSONObject) json;
-                addShow(wl, nextShow);
-            } else if (json instanceof Movie) {
-                JSONObject nextMovie = (JSONObject) json;
-                addMovie(wl, nextMovie);
+            JSONObject next = (JSONObject) json;
+            if (next.has("episodes")) {
+                addShow(wl, next);
+            } else {
+                addMovie(wl, next);
             }
         }
     }

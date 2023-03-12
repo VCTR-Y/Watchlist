@@ -4,6 +4,7 @@ import model.Status;
 import model.Show;
 import model.Movie;
 import model.WatchLists;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonWriterTest extends JsonTest {
+
 
     @Test
     void testWriterInvalidFile() {
@@ -47,6 +49,13 @@ public class JsonWriterTest extends JsonTest {
     void testWriterGeneralWatchList() {
         try {
             WatchLists wl = new WatchLists();
+            Movie batman = (new Movie("Batman", Status.TO_WATCH));
+            Show squidGame = (new Show("Squid Game", 9, 5, Status.WATCHING));
+            Movie spiderman = (new Movie("Spiderman", Status.WATCHED));
+            spiderman.changeMovieRating(9);
+            wl.addMovie(batman);
+            wl.addShow(squidGame);
+            wl.addMovie(spiderman);
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralWatchList.json");
             writer.open();
             writer.write(wl);
