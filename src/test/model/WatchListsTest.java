@@ -122,4 +122,42 @@ class WatchListsTest {
         assertEquals(sw2, watchlist.getWatchedList().get(1));
         assertEquals(2, watchlist.getWatchedList().size());
     }
+
+    @Test
+    public void testRemoveMovie() {
+        watchlist.addMovie(mv1);
+        watchlist.addMovie(mv2);
+        watchlist.addMovie(mv3);
+        assertEquals(mv1, watchlist.getToWatchList().get(0));
+        assertEquals(mv2, watchlist.getWatchingList().get(0));
+        assertEquals(mv3, watchlist.getWatchedList().get(0));
+        assertEquals(1, watchlist.getToWatchList().size());
+        assertEquals(1, watchlist.getWatchingList().size());
+        assertEquals(1, watchlist.getWatchedList().size());
+        watchlist.removeMovie(mv1);
+        watchlist.removeMovie(mv2);
+        watchlist.removeMovie(mv3);
+        assertEquals(0, watchlist.getToWatchList().size());
+        assertEquals(0, watchlist.getWatchingList().size());
+        assertEquals(0, watchlist.getWatchedList().size());
+    }
+
+    @Test
+    public void testRemoveShow() {
+        watchlist.addShow(sw1);
+        watchlist.addShow(sw2);
+        watchlist.addShow(sw3);
+        assertEquals(sw1, watchlist.getToWatchList().get(0));
+        assertEquals(sw2, watchlist.getWatchingList().get(0));
+        assertEquals(sw3, watchlist.getWatchedList().get(0));
+        assertEquals(1, watchlist.getToWatchList().size());
+        assertEquals(1, watchlist.getWatchingList().size());
+        assertEquals(1, watchlist.getWatchedList().size());
+        watchlist.removeShow(sw1);
+        watchlist.removeShow(sw2);
+        watchlist.removeShow(sw3);
+        assertEquals(0, watchlist.getToWatchList().size());
+        assertEquals(0, watchlist.getWatchingList().size());
+        assertEquals(0, watchlist.getWatchedList().size());
+    }
 }

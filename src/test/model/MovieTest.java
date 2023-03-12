@@ -48,5 +48,4 @@ public class MovieTest {
         movie1.changeMovieRating(9);
         assertEquals(9,movie1.getMovieRating());
     }
-
 }
