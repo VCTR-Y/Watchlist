@@ -7,7 +7,6 @@ import model.WatchLists;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,7 +38,7 @@ public class JsonReaderTest extends JsonTest{
 
     @Test
     void testGeneralWatchList() {
-        JsonReader reader = new JsonReader("./data/testGeneralWatchList.json");
+        JsonReader reader = new JsonReader("./data/testReaderGeneralWatchList.json");
         try {
             WatchLists wl = reader.read();
             assertEquals(1, wl.getToWatchList().size());
