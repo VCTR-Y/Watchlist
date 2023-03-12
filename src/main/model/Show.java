@@ -76,6 +76,7 @@ public class Show implements Writable {
         json.put("episodes", episodes);
         json.put("episodes watched", episodesWatched);
         json.put("status", status);
+        json.put("rating", rating);
         return json;
     }
 }

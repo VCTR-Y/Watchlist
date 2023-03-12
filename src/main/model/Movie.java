@@ -57,6 +57,7 @@ public class Movie implements Writable {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("status", status);
+        json.put("rating", rating);
         return json;
     }
 }

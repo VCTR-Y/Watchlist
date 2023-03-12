@@ -1,0 +1,19 @@
+{
+  "watched": [{
+    "name": "Spiderman",
+    "rating": 9,
+    "status": "WATCHED"
+  }],
+  "towatch": [{
+    "name": "Batman",
+    "rating": 0,
+    "status": "TO_WATCH"
+  }],
+  "watching": [{
+    "episodes watched": 5,
+    "name": "Squid Game",
+    "rating": 0,
+    "episodes": 9,
+    "status": "WATCHING"
+  }]
+}

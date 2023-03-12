@@ -129,26 +129,21 @@ public class WatchLists implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        JSONArray out = new JSONArray();
-        JSONObject outer = new JSONObject();
-        json.put("towatch list", toWatchToJson());
-        json.put("watching list", watchingToJson());
-        json.put("watched list", watchedToJson());
-        out.put(json);
-        outer.put("watchlist", out);
-        return outer;
+        json.put("towatch", toWatchToJson());
+        json.put("watching", watchingToJson());
+        json.put("watched", watchedToJson());
+        return json;
     }
 
     private JSONArray toWatchToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Object o : toWatchList) {
-            jsonArray.put(o.toString());
-//            if (o instanceof Show) {
-//                jsonArray.put(((Show) o).toJson());
-//            } else if (o instanceof Movie) {
-//                jsonArray.put(((Movie) o).toJson());
-//            }
+            if (o instanceof Show) {
+                jsonArray.put(((Show) o).toJson());
+            } else if (o instanceof Movie) {
+                jsonArray.put(((Movie) o).toJson());
+            }
         }
         return jsonArray;
     }

@@ -15,7 +15,6 @@ import org.json.*;
 
 // Represents a reader that reads WatchLists from JSON data stored in file
 public class JsonReader {
-
     private String source;
 
     // EFFECTS: constructs reader to read from source file
@@ -44,15 +43,42 @@ public class JsonReader {
     // EFFECTS: parses watchlists from JSON object and returns it
     private WatchLists parseWatchLists(JSONObject jsonObject) {
         WatchLists wl = new WatchLists();
-        addShowAndMovies(wl, jsonObject);
-        //addShows(wl, jsonObject);
+        addToWatch(wl, jsonObject);
+        addWatching(wl, jsonObject);
+        addWatched(wl, jsonObject);
         return wl;
     }
 
     // MODIFIES: wl
     // EFFECTS: parses movies from JSON object and adds them to watchlists
-    private void addShowAndMovies(WatchLists wl, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("watchlist");
+    private void addToWatch(WatchLists wl, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("towatch");
+        for (Object json : jsonArray) {
+            if (json instanceof Show) {
+                JSONObject nextShow = (JSONObject) json;
+                addShow(wl, nextShow);
+            } else if (json instanceof Movie) {
+                JSONObject nextMovie = (JSONObject) json;
+                addMovie(wl, nextMovie);
+            }
+        }
+    }
+
+    private void addWatching(WatchLists wl, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("watching");
+        for (Object json : jsonArray) {
+            if (json instanceof Show) {
+                JSONObject nextShow = (JSONObject) json;
+                addShow(wl, nextShow);
+            } else if (json instanceof Movie) {
+                JSONObject nextMovie = (JSONObject) json;
+                addMovie(wl, nextMovie);
+            }
+        }
+    }
+
+    private void addWatched(WatchLists wl, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("watched");
         for (Object json : jsonArray) {
             if (json instanceof Show) {
                 JSONObject nextShow = (JSONObject) json;
@@ -69,7 +95,9 @@ public class JsonReader {
     private void addMovie(WatchLists wl, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Status status = Status.valueOf(jsonObject.getString("status"));
+        int rating = jsonObject.getInt("rating");
         Movie movie = new Movie(name, status);
+        movie.changeMovieRating(rating);
         wl.addMovie(movie);
     }
 
@@ -90,7 +118,9 @@ public class JsonReader {
         int showEpisodes = jsonObject.getInt("episodes");
         int showEpisodesWatched = jsonObject.getInt("episodes watched");
         Status status = Status.valueOf(jsonObject.getString("status"));
+        int rating = jsonObject.getInt("rating");
         Show show = new Show(name, showEpisodes, showEpisodesWatched, status);
+        show.changeShowRating(rating);
         wl.addShow(show);
     }
 

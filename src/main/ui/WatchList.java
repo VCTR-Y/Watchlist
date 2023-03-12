@@ -22,6 +22,7 @@ public class WatchList {
     private JsonWriter jsonWriter;
 
     public WatchList() {
+        watchlist = new WatchLists();
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
         runWatchList();
@@ -32,7 +33,6 @@ public class WatchList {
     private void runWatchList() {
         String command = null;
         boolean keepGoing = true;
-        watchlist = new WatchLists();
         input = new Scanner(System.in);
         while (keepGoing) {
             displayMainMenu();
