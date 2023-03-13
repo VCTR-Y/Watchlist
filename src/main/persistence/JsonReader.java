@@ -13,6 +13,15 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
+/***************************************************************************************
+ * Code is modelled off of this sample application:
+ *    Title: JsonSerializationDemo
+ *    Author: Paul Carter
+ *    Date: 03/11/2022
+ *    Availability: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+ *
+ ***************************************************************************************/
+
 // Represents a reader that reads WatchLists from JSON data stored in file
 public class JsonReader {
     private String source;

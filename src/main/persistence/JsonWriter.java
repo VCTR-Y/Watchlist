@@ -5,6 +5,15 @@ import org.json.JSONObject;
 
 import java.io.*;
 
+/***************************************************************************************
+ * Code is modelled off of this sample application:
+ *    Title: JsonSerializationDemo
+ *    Author: Paul Carter
+ *    Date: 03/11/2022
+ *    Availability: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+ *
+ ***************************************************************************************/
+
 // Represents a writer that writes JSON representation of watchlists to file
 public class JsonWriter {
 
