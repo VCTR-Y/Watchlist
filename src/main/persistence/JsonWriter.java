@@ -24,6 +24,8 @@ public class JsonWriter {
         writer = new PrintWriter(new File(destination));
     }
 
+    // MODIFIES: this
+    // EFFECTS: writes JSON representation of watchlists to file
     public void write(WatchLists wl) {
         JSONObject json = wl.toJson();
         saveToFile(json.toString(TAB));

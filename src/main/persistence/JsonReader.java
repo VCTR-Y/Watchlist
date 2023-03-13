@@ -50,7 +50,7 @@ public class JsonReader {
     }
 
     // MODIFIES: wl
-    // EFFECTS: parses movies from JSON object and adds them to watchlists
+    // EFFECTS: parses to watch shows and movies from JSON object and adds them watchlists
     private void addToWatch(WatchLists wl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("towatch");
         for (Object json : jsonArray) {
@@ -63,6 +63,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: wl
+    // EFFECTS: parses watching shows movies from JSON object and adds them to watchlists
     private void addWatching(WatchLists wl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("watching");
         for (Object json : jsonArray) {
@@ -75,6 +77,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: wl
+    // EFFECTS: parses watched shows and movies from JSON object and adds them to watchlists
     private void addWatched(WatchLists wl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("watched");
         for (Object json : jsonArray) {
@@ -98,15 +102,6 @@ public class JsonReader {
         wl.addMovie(movie);
     }
 
-//    // MODIFIES: wl
-//    // EFFECTS: parses shows from JSON object and adds them to watchlists
-//    private void addShows(WatchLists wl, JSONObject jsonObject) {
-//        JSONArray jsonArray = jsonObject.getJSONArray("shows");
-//        for (Object json : jsonArray) {
-//            JSONObject nextShow = (JSONObject) json;
-//            addShow(wl, nextShow);
-//        }
-//    }
 
     // MODIFIES: wl
     // EFFECTS: parses show from JSON object and adds it to watchlists

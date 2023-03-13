@@ -135,6 +135,7 @@ public class WatchLists implements Writable {
         return json;
     }
 
+    // EFFECTS: returns shows and movies in toWatchList as a JSON array
     private JSONArray toWatchToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -148,6 +149,7 @@ public class WatchLists implements Writable {
         return jsonArray;
     }
 
+    // EFFECTS: returns shows and movies in watchingList as a JSON array
     private JSONArray watchingToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -161,6 +163,7 @@ public class WatchLists implements Writable {
         return jsonArray;
     }
 
+    // EFFECTS: returns shows and movies in watchedList as a JSON array
     private JSONArray watchedToJson() {
         JSONArray jsonArray = new JSONArray();
 

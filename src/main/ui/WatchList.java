@@ -21,6 +21,7 @@ public class WatchList {
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
 
+    // EFFECTS: constructs workroom and runs the application
     public WatchList() {
         watchlist = new WatchLists();
         jsonReader = new JsonReader(JSON_STORE);
@@ -182,6 +183,7 @@ public class WatchList {
         }
     }
 
+    // EFFECTS: saves a watchlist to file
     private void saveWatchList() {
         try {
             jsonWriter.open();
@@ -193,6 +195,8 @@ public class WatchList {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads watchlist from file
     private void loadWatchList() {
         try {
             watchlist = jsonReader.read();
@@ -216,6 +220,8 @@ public class WatchList {
         chooseShowStatus();
     }
 
+    // MODIFIES: this
+    // EFFECTS: prompts user to select the current status of the show/movie to remove
     private void displayRemoveMenu() {
         String selection = "";
         while (!(selection.equals("tw") || selection.equals("w") || selection.equals("wd") || selection.equals("b"))) {
@@ -238,6 +244,8 @@ public class WatchList {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes a show/movie from TO_WATCH list
     private void removeToWatch() {
         if (watchlist.getToWatchList().size() == 0) {
             System.out.println("There are currently no movies/shows in this list");
@@ -254,6 +262,8 @@ public class WatchList {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes a show/movie from WATCHING list
     private void removeWatching() {
         if (watchlist.getToWatchList().size() == 0) {
             System.out.println("There are currently no movies/shows in this list");
@@ -270,6 +280,8 @@ public class WatchList {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes a show/movie from WATCHED list
     private void removeWatched() {
         if (watchlist.getToWatchList().size() == 0) {
             System.out.println("There are currently no movies/shows in this list");
