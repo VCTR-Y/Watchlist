@@ -39,7 +39,7 @@ public class Movie implements Writable {
 
     // EFFECTS: returns the name of the movie
     public String getMovieName() {
-        return name;
+        return this.name;
     }
 
     // EFFECTS: returns the status of the movie

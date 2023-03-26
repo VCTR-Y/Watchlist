@@ -11,29 +11,35 @@ public class WatchListGUI {
 
     private WatchLists watchlist;
     private JFrame frame;
-    private JPanel mainPanel;
-    private JButton viewButton;
-    private JButton nullButton;
+    private JPanel lowerPanel;
+    private JPanel centerPanel;
+    private JTable lists;
+    private JButton addMovieButton;
+    private JButton addShowButton;
     private JButton saveButton;
     private JButton loadButton;
 
     public WatchListGUI() {
         watchlist = new WatchLists();
-
         frame = new JFrame("Watchlist");
-        mainPanel = new JPanel();
-        viewButton = new JButton("View Watchlist");
-        viewButton.addActionListener(new ActionListener() {
+        frame.setLayout(new BorderLayout());
+        lowerPanel = new JPanel();
+        lowerPanel.setBackground(new Color(246, 1, 1));
+        centerPanel = new JPanel();
+        lists = new JTable();
+
+        addMovieButton = new JButton("Add Movie");
+        addMovieButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainPanel.setVisible(false);
+                lowerPanel.setVisible(false);
             }
         });
-        nullButton = new JButton("(blank)");
-        nullButton.addActionListener(new ActionListener() {
+        addShowButton = new JButton("Add Show");
+        addShowButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainPanel.setVisible(false);
+                lowerPanel.setVisible(false);
             }
         });
         saveButton = new JButton("Save Watchlist");
@@ -51,16 +57,22 @@ public class WatchListGUI {
             }
         });
 
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-        mainPanel.setLayout(new GridLayout());
-        mainPanel.add(viewButton);
-        mainPanel.add(nullButton);
-        mainPanel.add(saveButton);
-        mainPanel.add(loadButton);
+
+        lowerPanel.setBorder(BorderFactory.createEmptyBorder(40, 25, 25, 40));
+        lowerPanel.setLayout(new FlowLayout());
+        lowerPanel.add(addMovieButton);
+        lowerPanel.add(addShowButton);
+        lowerPanel.add(saveButton);
+        lowerPanel.add(loadButton);
+
+        centerPanel.add(lists);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(mainPanel, BorderLayout.CENTER);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(lowerPanel, BorderLayout.SOUTH);
+        frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
+
     }
 }
