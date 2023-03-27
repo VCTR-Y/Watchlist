@@ -1,5 +1,9 @@
 package ui;
 
+import model.WatchLists;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -7,28 +11,37 @@ import java.awt.event.ActionListener;
 
 public class WatchlistDisplay {
 
-    private JFrame frame;
+    private static final String JSON_STORE = "./data/watchlist.json";
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
+
+    private JFrame mainFrame;
+    private WatchLists watchlist;
+
+    private AddMoviePanel addMovieFrame;
+    private AddShowPanel addShowFrame;
+
     private JPanel watchlistUI;
-    private AddMoviePanel addMovie;
-    private AddShowPanel addShow;
     private JTable toWatchList;
     private JTable watchingList;
     private JTable watchedList;
     private JButton addMovieButton;
     private JButton addShowButton;
+    private JButton removeButton;
     private JButton saveButton;
     private JButton loadButton;
 
     public WatchlistDisplay() {
-        frame = new JFrame("WatchList");
-        frame.add(watchlistUI);
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        mainFrame = new JFrame("WatchList");
+        mainFrame.add(watchlistUI);
         createWatchList();
-        setAddMovieButton();
-        setAddShowButton();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.pack();
-        frame.setVisible(true);
+        setButtons();
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.pack();
+        mainFrame.setVisible(true);
     }
 
     private void createWatchList() {
@@ -36,6 +49,7 @@ public class WatchlistDisplay {
         createWatchingList();
         createWatchedList();
     }
+
     private void createToWatchList() {
         toWatchList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes"}));
     }
@@ -48,8 +62,34 @@ public class WatchlistDisplay {
         watchedList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes", "Rating"}));
     }
 
+    private void setButtons() {
+        setAddMovieButton();
+        setAddShowButton();
+        setRemoveMovieShowButton();
+        setSaveButton();
+        setLoadButton();
+    }
+
     private void setAddMovieButton() {
         addMovieButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addMovieFrame = new AddMoviePanel(watchlist);
+            }
+        });
+    }
+
+    private void setAddShowButton() {
+        addShowButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addShowFrame = new AddShowPanel(watchlist);
+            }
+        });
+    }
+
+    private void setRemoveMovieShowButton() {
+        removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -57,8 +97,17 @@ public class WatchlistDisplay {
         });
     }
 
-    private void setAddShowButton() {
-        addShowButton.addActionListener(new ActionListener() {
+    private void setSaveButton() {
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    private void setLoadButton() {
+        loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
