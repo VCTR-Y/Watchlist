@@ -1,5 +1,7 @@
 package ui;
 
+import model.Movie;
+import model.Show;
 import model.WatchLists;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -22,9 +24,14 @@ public class WatchlistDisplay {
     private AddShowPanel addShowFrame;
 
     private JPanel watchlistUI;
+
     private JTable toWatchList;
     private JTable watchingList;
     private JTable watchedList;
+    private static DefaultTableModel model1;
+    private static DefaultTableModel model2;
+    private static DefaultTableModel model3;
+
     private JButton addMovieButton;
     private JButton addShowButton;
     private JButton removeButton;
@@ -32,6 +39,7 @@ public class WatchlistDisplay {
     private JButton loadButton;
 
     public WatchlistDisplay() {
+        watchlist = new WatchLists();
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
         mainFrame = new JFrame("WatchList");
@@ -52,14 +60,55 @@ public class WatchlistDisplay {
 
     private void createToWatchList() {
         toWatchList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes"}));
+        model1 = (DefaultTableModel) toWatchList.getModel();
+        Object rowData[] = new Object[2];
+//        for (int i = 0; i < watchlist.getToWatchList().size(); i++) {
+//            if (watchlist.getToWatchList().get(i) instanceof Movie) {
+//                rowData[0] = ((Movie) watchlist.getToWatchList().get(i)).getMovieName();
+//                rowData[1] = "N/A";
+//                model1.addRow(rowData);
+//            } else if (watchlist.getToWatchList().get(i) instanceof Show) {
+//                rowData[0] = ((Show) watchlist.getToWatchList().get(i)).getShowName();
+//                rowData[1] = "0/" + ((Show) watchlist.getToWatchList().get(i)).getShowEpisodes();
+//                model1.addRow(rowData);
+//            }
+//        }
     }
 
     private void createWatchingList() {
         watchingList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes"}));
+        model2 = (DefaultTableModel) watchingList.getModel();
+        Object rowData[] = new Object[2];
+//        for (int i = 0; i < watchlist.getWatchingList().size(); i++) {
+//            if (watchlist.getWatchingList().get(i) instanceof Movie) {
+//                rowData[0] = ((Movie) watchlist.getWatchingList().get(i)).getMovieName();
+//                rowData[1] = "N/A";
+//                model2.addRow(rowData);
+//            } else if (watchlist.getWatchingList().get(i) instanceof Show) {
+//                rowData[0] = ((Show) watchlist.getWatchingList().get(i)).getShowName();
+//                rowData[1] = ((Show) watchlist.getWatchingList().get(i)).getShowEpisodesWatched()
+//                        + "/" + ((Show) watchlist.getWatchingList().get(i)).getShowEpisodes();
+//                model2.addRow(rowData);
+//            }
+//        }
     }
 
     private void createWatchedList() {
         watchedList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes", "Rating"}));
+        model3 = (DefaultTableModel) watchedList.getModel();
+        Object rowData[] = new Object[3];
+//        for (int i = 0; i < watchlist.getWatchedList().size(); i++) {
+//            if (watchlist.getWatchedList().get(i) instanceof Movie) {
+//                rowData[0] = ((Movie) watchlist.getWatchedList().get(i)).getMovieName();
+//                rowData[1] = "N/A";
+//                rowData[2] = ((Movie) watchlist.getWatchedList().get(i)).getMovieRating();
+//            } else if (watchlist.getWatchedList().get(i) instanceof Show) {
+//                rowData[0] = ((Show) watchlist.getWatchedList().get(i)).getShowName();
+//                rowData[1] = ((Show) watchlist.getWatchedList().get(i)).getShowEpisodes()
+//                        + "/" + ((Show) watchlist.getWatchedList().get(i)).getShowEpisodes();
+//                rowData[2] = ((Show) watchlist.getWatchedList().get(i)).getShowRating();
+//            }
+//        }
     }
 
     private void setButtons() {
@@ -115,4 +164,15 @@ public class WatchlistDisplay {
         });
     }
 
+    public static DefaultTableModel getModel1() {
+        return model1;
+    }
+
+    public static DefaultTableModel getModel2() {
+        return model2;
+    }
+
+    public static DefaultTableModel getModel3() {
+        return model3;
+    }
 }

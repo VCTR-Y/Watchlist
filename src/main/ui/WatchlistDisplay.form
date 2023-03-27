@@ -44,7 +44,10 @@
             <children>
               <component id="5704f" class="javax.swing.JTable" binding="toWatchList">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <autoCreateRowSorter value="false"/>
+                  <enabled value="true"/>
+                </properties>
               </component>
             </children>
           </scrollpane>

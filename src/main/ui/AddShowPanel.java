@@ -12,9 +12,9 @@ public class AddShowPanel {
 
     private JFrame frame;
     private JPanel panel1;
-    private JTextField showName;
+    private JTextField nameShow;
     private JComboBox setStatus;
-    private JComboBox comboBox2;
+    private JComboBox rating;
     private JButton cancelButton;
     private JButton addShowButton;
     private JTextField episodes;
@@ -35,9 +35,9 @@ public class AddShowPanel {
 
     // NOT SURE IF THIS WORKS
     private Status setStatus() {
-        if (String.valueOf(setStatus) == "To Watch") {
+        if (setStatus.getSelectedItem().toString() == "To Watch") {
             return Status.TO_WATCH;
-        } else if (String.valueOf(setStatus) == "Watching") {
+        } else if (setStatus.getSelectedItem().toString() == "Watching") {
             return Status.WATCHING;
         } else {
             return Status.WATCHED;
@@ -47,7 +47,7 @@ public class AddShowPanel {
     private void setButtons(WatchLists watchlist) {
         setAddShowButton(watchlist);
         setCancelButton();
-        comboBox2.setEnabled(false);
+        rating.setEnabled(true);
 
 //        I want to make it so it only enables this combobox if the other combobox has a certain value selected
 
@@ -55,15 +55,48 @@ public class AddShowPanel {
 //            comboBox2.setEnabled(true);
         }
 
-    private void setAddShowButton(WatchLists watchList) {
+    private void setAddShowButton(WatchLists watchlist) {
         addShowButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Show show = new Show(String.valueOf(showName), Integer.parseInt(String.valueOf(episodes)),
-                        Integer.parseInt(String.valueOf(episodesWatched)), setStatus());
-                watchList.addShow(show);
+                if (nameShow.getText().equals("") || episodes.getText().equals("") || episodesWatched.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please enter all data");
+                } else if (Integer.parseInt(episodes.getText()) < Integer.parseInt(episodesWatched.getText())) {
+                    JOptionPane.showMessageDialog(null, "Can't have more episodes watched than episodes");
+                } else {
+                    Show show = new Show(String.valueOf(nameShow), Integer.parseInt(episodes.getText()),
+                            Integer.parseInt(episodesWatched.getText()), setStatus());
+                    watchlist.addShow(show);
+                    updateLists();
+                    frame.setVisible(false);
+                }
             }
         });
+    }
+
+    private void updateLists(){
+        if (setStatus.getSelectedItem().toString() == "To Watch") {
+            updateToWatch();
+        } else if (setStatus.getSelectedItem().toString() == "Watching") {
+            updateWatching();
+        } else {
+            updateWatched();
+        }
+    }
+
+    private void updateToWatch() {
+        Object rowData[] = {nameShow.getText(), "0/" + episodes.getText()};
+        WatchlistDisplay.getModel1().addRow(rowData);
+    }
+
+    private void updateWatching() {
+        Object rowData[] = {nameShow.getText(), episodesWatched.getText() + "/" + episodes.getText()};
+        WatchlistDisplay.getModel2().addRow(rowData);
+    }
+
+    private void updateWatched() {
+        Object rowData[] = {nameShow.getText(), episodes.getText() + "/" + episodes.getText(), rating.getSelectedItem()};
+        WatchlistDisplay.getModel3().addRow(rowData);
     }
 
     private void setCancelButton() {
