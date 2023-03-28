@@ -71,7 +71,9 @@ public class AddMovieFrame {
                     JOptionPane.showMessageDialog(null, "Please give a Rating");
                 } else {
                     Movie movie = new Movie(nameMovie.getText(), setStatus());
-                    movie.changeMovieRating(Integer.parseInt(rating.getSelectedItem().toString()));
+                    if (setStatus.getSelectedItem().toString() == "Watched") {
+                        movie.changeMovieRating(Integer.parseInt(rating.getSelectedItem().toString()));
+                    }
                     watchlist.addMovie(movie);
                     updateLists();
                     frame.setVisible(false);

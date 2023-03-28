@@ -79,7 +79,9 @@ public class AddShowFrame {
                 } else {
                     Show show = new Show(nameShow.getText(), Integer.parseInt(episodes.getText()),
                             Integer.parseInt(episodesWatched.getText()), setStatus());
-                    show.changeShowRating(Integer.parseInt(rating.getSelectedItem().toString()));
+                    if (setStatus.getSelectedItem().toString() == "Watched") {
+                        show.changeShowRating(Integer.parseInt(rating.getSelectedItem().toString()));
+                    }
                     watchlist.addShow(show);
                     updateLists();
                     frame.setVisible(false);
