@@ -10,6 +10,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class WatchlistDisplay {
 
@@ -20,17 +22,17 @@ public class WatchlistDisplay {
     private JFrame mainFrame;
     private WatchLists watchlist;
 
-    private AddMoviePanel addMovieFrame;
-    private AddShowPanel addShowFrame;
+    private AddMovieFrame addMovieFrame;
+    private AddShowFrame addShowFrame;
 
     private JPanel watchlistUI;
 
     private JTable toWatchList;
     private JTable watchingList;
     private JTable watchedList;
-    private static DefaultTableModel model1;
-    private static DefaultTableModel model2;
-    private static DefaultTableModel model3;
+    private static DefaultTableModel toWatchData;
+    private static DefaultTableModel watchingData;
+    private static DefaultTableModel watchedData;
 
     private JButton addMovieButton;
     private JButton addShowButton;
@@ -38,6 +40,7 @@ public class WatchlistDisplay {
     private JButton saveButton;
     private JButton loadButton;
 
+    // EFFECTS: Creates a new WatchlistDisplay()
     public WatchlistDisplay() {
         watchlist = new WatchLists();
         jsonReader = new JsonReader(JSON_STORE);
@@ -47,7 +50,6 @@ public class WatchlistDisplay {
         createWatchList();
         setButtons();
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setLocationRelativeTo(null);
         mainFrame.pack();
         mainFrame.setVisible(true);
     }
@@ -60,57 +62,21 @@ public class WatchlistDisplay {
 
     private void createToWatchList() {
         toWatchList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes"}));
-        model1 = (DefaultTableModel) toWatchList.getModel();
-        Object rowData[] = new Object[2];
-//        for (int i = 0; i < watchlist.getToWatchList().size(); i++) {
-//            if (watchlist.getToWatchList().get(i) instanceof Movie) {
-//                rowData[0] = ((Movie) watchlist.getToWatchList().get(i)).getMovieName();
-//                rowData[1] = "N/A";
-//                model1.addRow(rowData);
-//            } else if (watchlist.getToWatchList().get(i) instanceof Show) {
-//                rowData[0] = ((Show) watchlist.getToWatchList().get(i)).getShowName();
-//                rowData[1] = "0/" + ((Show) watchlist.getToWatchList().get(i)).getShowEpisodes();
-//                model1.addRow(rowData);
-//            }
-//        }
+        toWatchData = (DefaultTableModel) toWatchList.getModel();
     }
 
     private void createWatchingList() {
         watchingList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes"}));
-        model2 = (DefaultTableModel) watchingList.getModel();
-        Object rowData[] = new Object[2];
-//        for (int i = 0; i < watchlist.getWatchingList().size(); i++) {
-//            if (watchlist.getWatchingList().get(i) instanceof Movie) {
-//                rowData[0] = ((Movie) watchlist.getWatchingList().get(i)).getMovieName();
-//                rowData[1] = "N/A";
-//                model2.addRow(rowData);
-//            } else if (watchlist.getWatchingList().get(i) instanceof Show) {
-//                rowData[0] = ((Show) watchlist.getWatchingList().get(i)).getShowName();
-//                rowData[1] = ((Show) watchlist.getWatchingList().get(i)).getShowEpisodesWatched()
-//                        + "/" + ((Show) watchlist.getWatchingList().get(i)).getShowEpisodes();
-//                model2.addRow(rowData);
-//            }
-//        }
+        watchingData = (DefaultTableModel) watchingList.getModel();
     }
 
     private void createWatchedList() {
         watchedList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes", "Rating"}));
-        model3 = (DefaultTableModel) watchedList.getModel();
-        Object rowData[] = new Object[3];
-//        for (int i = 0; i < watchlist.getWatchedList().size(); i++) {
-//            if (watchlist.getWatchedList().get(i) instanceof Movie) {
-//                rowData[0] = ((Movie) watchlist.getWatchedList().get(i)).getMovieName();
-//                rowData[1] = "N/A";
-//                rowData[2] = ((Movie) watchlist.getWatchedList().get(i)).getMovieRating();
-//            } else if (watchlist.getWatchedList().get(i) instanceof Show) {
-//                rowData[0] = ((Show) watchlist.getWatchedList().get(i)).getShowName();
-//                rowData[1] = ((Show) watchlist.getWatchedList().get(i)).getShowEpisodes()
-//                        + "/" + ((Show) watchlist.getWatchedList().get(i)).getShowEpisodes();
-//                rowData[2] = ((Show) watchlist.getWatchedList().get(i)).getShowRating();
-//            }
-//        }
+        watchedData = (DefaultTableModel) watchedList.getModel();
     }
 
+    // EFFECTS: Sets the functionalities of AddMovieButton, AddShowButton, RemoveMovieShowButton,
+    //          SaveButton, and LoadButton
     private void setButtons() {
         setAddMovieButton();
         setAddShowButton();
@@ -123,7 +89,7 @@ public class WatchlistDisplay {
         addMovieButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addMovieFrame = new AddMoviePanel(watchlist);
+                addMovieFrame = new AddMovieFrame(watchlist);
             }
         });
     }
@@ -132,7 +98,7 @@ public class WatchlistDisplay {
         addShowButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addShowFrame = new AddShowPanel(watchlist);
+                addShowFrame = new AddShowFrame(watchlist);
             }
         });
     }
@@ -141,7 +107,18 @@ public class WatchlistDisplay {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (toWatchList.getSelectedRow() >= 0) {
+                    watchlist.getToWatchList().remove(toWatchList.getSelectedRow());
+                    toWatchData.removeRow(toWatchList.getSelectedRow());
+                } else if (watchingList.getSelectedRow() >= 0) {
+                    watchlist.getWatchingList().remove(watchingList.getSelectedRow());
+                    watchingData.removeRow(watchingList.getSelectedRow());
+                } else if (watchedList.getSelectedRow() >= 0) {
+                    watchlist.getWatchedList().remove(watchedList.getSelectedRow());
+                    watchedData.removeRow(watchedList.getSelectedRow());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Select a Movie/Show to delete");
+                }
             }
         });
     }
@@ -150,7 +127,14 @@ public class WatchlistDisplay {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    jsonWriter.open();
+                    jsonWriter.write(watchlist);
+                    jsonWriter.close();
+                    JOptionPane.showMessageDialog(null, "Successfully Saved");
+                } catch (FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(null, "Something went wrong...");
+                }
             }
         });
     }
@@ -159,20 +143,77 @@ public class WatchlistDisplay {
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    watchlist = jsonReader.read();
+                    loadToWatch();
+                    loadWatching();
+                    loadWatched();
+                    JOptionPane.showMessageDialog(null, "Successfully Loaded");
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Something went wrong...");
+                }
             }
         });
     }
 
-    public static DefaultTableModel getModel1() {
-        return model1;
+    private void loadToWatch() {
+        Object[] rowData = new Object[2];
+        for (int i = 0; i < watchlist.getToWatchList().size(); i++) {
+            if (watchlist.getToWatchList().get(i) instanceof Movie) {
+                rowData[0] = ((Movie) watchlist.getToWatchList().get(i)).getMovieName();
+                rowData[1] = "N/A";
+                toWatchData.addRow(rowData);
+            } else if (watchlist.getToWatchList().get(i) instanceof Show) {
+                rowData[0] = ((Show) watchlist.getToWatchList().get(i)).getShowName();
+                rowData[1] = "0/" + ((Show) watchlist.getToWatchList().get(i)).getShowEpisodes();
+                toWatchData.addRow(rowData);
+            }
+        }
     }
 
-    public static DefaultTableModel getModel2() {
-        return model2;
+    private void loadWatching() {
+        Object[] rowData = new Object[2];
+        for (int i = 0; i < watchlist.getWatchingList().size(); i++) {
+            if (watchlist.getWatchingList().get(i) instanceof Movie) {
+                rowData[0] = ((Movie) watchlist.getWatchingList().get(i)).getMovieName();
+                rowData[1] = "N/A";
+                watchingData.addRow(rowData);
+            } else if (watchlist.getWatchingList().get(i) instanceof Show) {
+                rowData[0] = ((Show) watchlist.getWatchingList().get(i)).getShowName();
+                rowData[1] = ((Show) watchlist.getWatchingList().get(i)).getShowEpisodesWatched()
+                        + "/" + ((Show) watchlist.getWatchingList().get(i)).getShowEpisodes();
+                watchingData.addRow(rowData);
+            }
+        }
     }
 
-    public static DefaultTableModel getModel3() {
-        return model3;
+    private void loadWatched() {
+        Object[] rowData = new Object[3];
+        for (int i = 0; i < watchlist.getWatchedList().size(); i++) {
+            if (watchlist.getWatchedList().get(i) instanceof Movie) {
+                rowData[0] = ((Movie) watchlist.getWatchedList().get(i)).getMovieName();
+                rowData[1] = "N/A";
+                rowData[2] = ((Movie) watchlist.getWatchedList().get(i)).getMovieRating();
+                watchedData.addRow(rowData);
+            } else if (watchlist.getWatchedList().get(i) instanceof Show) {
+                rowData[0] = ((Show) watchlist.getWatchedList().get(i)).getShowName();
+                rowData[1] = ((Show) watchlist.getWatchedList().get(i)).getShowEpisodes()
+                        + "/" + ((Show) watchlist.getWatchedList().get(i)).getShowEpisodes();
+                rowData[2] = ((Show) watchlist.getWatchedList().get(i)).getShowRating();
+                watchedData.addRow(rowData);
+            }
+        }
+    }
+
+    public static DefaultTableModel getToWatchData() {
+        return toWatchData;
+    }
+
+    public static DefaultTableModel getWatchingData() {
+        return watchingData;
+    }
+
+    public static DefaultTableModel getWatchedData() {
+        return watchedData;
     }
 }

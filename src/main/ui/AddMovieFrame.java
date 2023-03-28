@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddMoviePanel {
+public class AddMovieFrame {
     private JFrame frame;
     private JPanel panel1;
     private JComboBox setStatus;
@@ -17,17 +17,18 @@ public class AddMoviePanel {
     private JButton addMovieButton;
     private JTextField nameMovie;
 
-    public AddMoviePanel(WatchLists watchlist) {
+    // EFFECTS: Creates a new AddMovieFrame
+    public AddMovieFrame(WatchLists watchlist) {
         frame = new JFrame();
         frame.add(panel1);
         setButtons(watchlist);
+        ratingEnable();
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
-        // WANT TO BE ABLE TO MAKE COMBOBOX2 DISABLED WHEN NOT WATCHED
     }
 
-    // NOT SURE IF THIS WORKS
+    // EFFECTS: Returns the status selected in setStatus
     private Status setStatus() {
         if (setStatus.getSelectedItem().toString() == "To Watch") {
             return Status.TO_WATCH;
@@ -38,9 +39,25 @@ public class AddMoviePanel {
         }
     }
 
+    // EFFECTS: Sets the functionalities of AddShowButton and CancelButton
     private void setButtons(WatchLists watchlist) {
         setAddMovieButton(watchlist);
         setCancelButton();
+        rating.setEnabled(false);
+    }
+
+    // EFFECTS: Enables the user to select a rating if status is set to "Watched"
+    private void ratingEnable() {
+        setStatus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (setStatus.getSelectedItem().toString() == "Watched") {
+                    rating.setEnabled(true);
+                } else {
+                    rating.setEnabled(false);
+                }
+            }
+        });
     }
 
     private void setAddMovieButton(WatchLists watchlist) {
@@ -49,8 +66,12 @@ public class AddMoviePanel {
             public void actionPerformed(ActionEvent e) {
                 if (nameMovie.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Please Enter All Data");
+                } else if (rating.getSelectedItem().toString() == "N/A"
+                        && setStatus.getSelectedItem().toString() == "Watched") {
+                    JOptionPane.showMessageDialog(null, "Please give a Rating");
                 } else {
                     Movie movie = new Movie(nameMovie.getText(), setStatus());
+                    movie.changeMovieRating(Integer.parseInt(rating.getSelectedItem().toString()));
                     watchlist.addMovie(movie);
                     updateLists();
                     frame.setVisible(false);
@@ -59,6 +80,7 @@ public class AddMoviePanel {
         });
     }
 
+    // EFFECTS: Updates the WatchList when a new Movie has been added
     private void updateLists() {
         if (setStatus.getSelectedItem().toString() == "To Watch") {
             updateToWatch();
@@ -69,21 +91,25 @@ public class AddMoviePanel {
         }
     }
 
+    // EFFECTS: Updates the "To Watch" list when a new to watch Movie has been added
     private void updateToWatch() {
-        Object rowData[] = {nameMovie.getText(), "N/A"};
-        WatchlistDisplay.getModel1().addRow(rowData);
+        Object[] rowData = {nameMovie.getText(), "N/A"};
+        WatchlistDisplay.getToWatchData().addRow(rowData);
     }
 
+    // EFFECTS: Updates the "Watching" list when a new watching Movie has been added
     private void updateWatching() {
-        Object rowData[] = {nameMovie.getText(), "N/A"};
-        WatchlistDisplay.getModel2().addRow(rowData);
+        Object[] rowData = {nameMovie.getText(), "N/A"};
+        WatchlistDisplay.getWatchingData().addRow(rowData);
     }
 
+    // EFFECTS: Updates the "Watched" list when a new watched Movie has been added
     private void updateWatched() {
-        Object rowData[] = {nameMovie.getText(), "N/A", rating.getSelectedItem()};
-        WatchlistDisplay.getModel3().addRow(rowData);
+        Object[] rowData = {nameMovie.getText(), "N/A", rating.getSelectedItem()};
+        WatchlistDisplay.getWatchedData().addRow(rowData);
     }
 
+    // EFFECTS: Closes the frame
     private void setCancelButton() {
         cancelButton.addActionListener(new ActionListener() {
             @Override
@@ -92,9 +118,4 @@ public class AddMoviePanel {
             }
         });
     }
-
-    public JFrame getFrame() {
-        return frame;
-    }
-
 }
