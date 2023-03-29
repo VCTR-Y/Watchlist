@@ -26,3 +26,13 @@ I'm sure there are many other people who have a similar problem too.
 - As a user, I want to be able to remove a movie from my watchlist
 - As a user, I want to be able to save my watchlist to file
 - As a user, I want to be able to be able to load my watchlist list from file
+
+# Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by pressing the "Add Movie"
+  or "Add Show" button and filling in the required fields
+- You can generate the second required action related to adding Xs to a Y by selected a Movie or Show
+  already added and pressing the "Remove Movie/Show" button
+- You can locate my visual component by the large "WATCHLIST" heading when you run the application
+- You can save the state of my application by pressing the "Save" button
+- You can reload the state of my application by pressing the "Load" button

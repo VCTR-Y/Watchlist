@@ -61,16 +61,19 @@ public class WatchlistDisplay {
         createWatchedList();
     }
 
+    // EFFECTS: Creates the toWatchList JTable
     private void createToWatchList() {
         toWatchList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes"}));
         toWatchData = (DefaultTableModel) toWatchList.getModel();
     }
 
+    // EFFECTS: Creates the watchingList JTable
     private void createWatchingList() {
         watchingList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes"}));
         watchingData = (DefaultTableModel) watchingList.getModel();
     }
 
+    // EFFECTS: Creates the watchedList JTable
     private void createWatchedList() {
         watchedList.setModel(new DefaultTableModel(null, new String[]{"Name", "Episodes", "Rating"}));
         watchedData = (DefaultTableModel) watchedList.getModel();
@@ -86,6 +89,7 @@ public class WatchlistDisplay {
         setLoadButton();
     }
 
+    // EFFECTS: Opens a new AddMovieFrame
     private void setAddMovieButton() {
         addMovieButton.addActionListener(new ActionListener() {
             @Override
@@ -95,6 +99,7 @@ public class WatchlistDisplay {
         });
     }
 
+    // EFFECTS: Opens a new AddShowFrame
     private void setAddShowButton() {
         addShowButton.addActionListener(new ActionListener() {
             @Override
@@ -104,6 +109,7 @@ public class WatchlistDisplay {
         });
     }
 
+    // EFFECTS: Removes the selected movie or show
     private void setRemoveMovieShowButton() {
         removeButton.addActionListener(new ActionListener() {
             @Override
@@ -124,6 +130,7 @@ public class WatchlistDisplay {
         });
     }
 
+    // EFFECTS: Saves the data in the application
     private void setSaveButton() {
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -140,6 +147,7 @@ public class WatchlistDisplay {
         });
     }
 
+    // EFFECTS: Loads the saved data in the application
     private void setLoadButton() {
         loadButton.addActionListener(new ActionListener() {
             @Override
@@ -157,6 +165,7 @@ public class WatchlistDisplay {
         });
     }
 
+    // EFFECTS: Loads data in the To Watch list
     private void loadToWatch() {
         Object[] rowData = new Object[2];
         for (int i = 0; i < watchlist.getToWatchList().size(); i++) {
@@ -172,6 +181,7 @@ public class WatchlistDisplay {
         }
     }
 
+    // EFFECTS: Loads the data in the Watching list
     private void loadWatching() {
         Object[] rowData = new Object[2];
         for (int i = 0; i < watchlist.getWatchingList().size(); i++) {
@@ -188,6 +198,7 @@ public class WatchlistDisplay {
         }
     }
 
+    // EFFECTS: Loads the data in the Watched list
     private void loadWatched() {
         Object[] rowData = new Object[3];
         for (int i = 0; i < watchlist.getWatchedList().size(); i++) {
@@ -206,14 +217,17 @@ public class WatchlistDisplay {
         }
     }
 
+    // EFFECTS: Gets toWatchData
     public static DefaultTableModel getToWatchData() {
         return toWatchData;
     }
 
+    // EFFECTS: Gets watchingData
     public static DefaultTableModel getWatchingData() {
         return watchingData;
     }
 
+    // EFFECTS: Gets watchedData
     public static DefaultTableModel getWatchedData() {
         return watchedData;
     }

@@ -60,6 +60,7 @@ public class AddMovieFrame {
         });
     }
 
+    // EFFECTS: Adds functionality to the Add Movie button
     private void setAddMovieButton(WatchLists watchlist) {
         addMovieButton.addActionListener(new ActionListener() {
             @Override

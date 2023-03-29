@@ -63,18 +63,19 @@ public class AddShowFrame {
         });
     }
 
+    // EFFECTS: Sets functionality to the Add Show button
     private void setAddShowButton(WatchLists watchlist) {
         addShowButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (nameShow.getText().equals("") || episodes.getText().equals("")
-                        || episodesWatched.getText().equals("")) {
+                if (isBlank()) {
                     JOptionPane.showMessageDialog(null, "Please Enter All Data");
+                } else if (!(isNumeric(episodes.getText(), episodesWatched.getText()))) {
+                    JOptionPane.showMessageDialog(null, "Episodes and/or Episodes Watched Must be a Number");
                 } else if (Integer.parseInt(episodes.getText()) < Integer.parseInt(episodesWatched.getText())) {
                     JOptionPane.showMessageDialog(null,
                             "Can't Have More Episodes Watched Than Episodes");
-                } else if (rating.getSelectedItem().toString() == "N/A"
-                        && setStatus.getSelectedItem().toString() == "Watched") {
+                } else if (noRating()) {
                     JOptionPane.showMessageDialog(null, "Please Give A Rating");
                 } else {
                     Show show = new Show(nameShow.getText(), Integer.parseInt(episodes.getText()),
@@ -87,6 +88,35 @@ public class AddShowFrame {
                 }
             }
         });
+    }
+
+    // EFFECTS: Checks if episodes and episodes watched is an int
+    private boolean isNumeric(String ep, String epw) {
+        try {
+            Integer.parseInt(ep);
+            Integer.parseInt(epw);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // EFFECTS: Checks if any text field is left blank
+    private boolean isBlank() {
+        if (nameShow.getText().equals("") || episodes.getText().equals("") || episodesWatched.getText().equals("")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // EFFECTS: Checks if a rating is given when a show is Watched
+    private boolean noRating() {
+        if (rating.getSelectedItem().toString() == "N/A" && setStatus.getSelectedItem().toString() == "Watched") {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // EFFECTS: Updates the WatchList when a new Show has been added
