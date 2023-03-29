@@ -72,10 +72,10 @@ public class AddShowFrame {
                     JOptionPane.showMessageDialog(null, "Please Enter All Data");
                 } else if (Integer.parseInt(episodes.getText()) < Integer.parseInt(episodesWatched.getText())) {
                     JOptionPane.showMessageDialog(null,
-                            "Can't have more episodes watched than episodes");
+                            "Can't Have More Episodes Watched Than Episodes");
                 } else if (rating.getSelectedItem().toString() == "N/A"
                         && setStatus.getSelectedItem().toString() == "Watched") {
-                    JOptionPane.showMessageDialog(null, "Please give a Rating");
+                    JOptionPane.showMessageDialog(null, "Please Give A Rating");
                 } else {
                     Show show = new Show(nameShow.getText(), Integer.parseInt(episodes.getText()),
                             Integer.parseInt(episodesWatched.getText()), setStatus());
@@ -84,7 +84,6 @@ public class AddShowFrame {
                     }
                     watchlist.addShow(show);
                     updateLists();
-                    frame.setVisible(false);
                 }
             }
         });
@@ -94,10 +93,13 @@ public class AddShowFrame {
     private void updateLists() {
         if (setStatus.getSelectedItem().toString() == "To Watch") {
             updateToWatch();
+            frame.setVisible(false);
         } else if (setStatus.getSelectedItem().toString() == "Watching") {
             updateWatching();
+            frame.setVisible(false);
         } else {
             updateWatched();
+            frame.setVisible(false);
         }
     }
 

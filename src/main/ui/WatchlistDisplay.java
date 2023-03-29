@@ -54,6 +54,7 @@ public class WatchlistDisplay {
         mainFrame.setVisible(true);
     }
 
+    // EFFECTS: Creates the watchlists displayed on screen
     private void createWatchList() {
         createToWatchList();
         createWatchingList();

@@ -68,7 +68,7 @@ public class AddMovieFrame {
                     JOptionPane.showMessageDialog(null, "Please Enter All Data");
                 } else if (rating.getSelectedItem().toString() == "N/A"
                         && setStatus.getSelectedItem().toString() == "Watched") {
-                    JOptionPane.showMessageDialog(null, "Please give a Rating");
+                    JOptionPane.showMessageDialog(null, "Please Give A Rating");
                 } else {
                     Movie movie = new Movie(nameMovie.getText(), setStatus());
                     if (setStatus.getSelectedItem().toString() == "Watched") {
