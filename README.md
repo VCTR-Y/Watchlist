@@ -36,3 +36,36 @@ I'm sure there are many other people who have a similar problem too.
 - You can locate my visual component by the large "WATCHLIST" heading when you run the application
 - You can save the state of my application by pressing the "Save" button
 - You can reload the state of my application by pressing the "Load" button
+
+# Phase 4: Task 2
+- Mon Apr 10 18:19:58 PDT 2023 <br>
+The movie "To Watch Movie" was added.
+- Mon Apr 10 18:20:12 PDT 2023 <br>
+The movie "Watching Movie" was added.
+- Mon Apr 10 18:20:31 PDT 2023 <br>
+The movie "Watched Movie" was added.
+- Mon Apr 10 18:20:42 PDT 2023 <br>
+The show "To Watch Show" was added.
+- Mon Apr 10 18:20:51 PDT 2023 <br>
+The show "Watching Show" was added.
+- Mon Apr 10 18:21:01 PDT 2023 <br>
+The show "Watched Show" was added.
+- Mon Apr 10 18:21:05 PDT 2023 <br>
+The movie "To Watch Movie" was removed.
+- Mon Apr 10 18:21:06 PDT 2023 <br>
+The movie "Watching Movie" was removed.
+- Mon Apr 10 18:21:08 PDT 2023 <br>
+The movie "Watched Movie" was removed.
+- Mon Apr 10 18:21:10 PDT 2023 <br>
+The show "To Watch Show" was removed.
+- Mon Apr 10 18:21:11 PDT 2023 <br>
+The show "Watching Show" was removed.
+- Mon Apr 10 18:21:13 PDT 2023 <br>
+The show "Watched Show" was removed.
+
+# Phase 4: Task 3
+If I had more time to work on this project, one substantive refactoring
+I might do would be to incorporate an interface or an abstract class and make
+my Movie and Show class implement or extend it. This is because I notice that
+there's a lot of repetition in my code and creating and interface or abstract class
+would reduce it.

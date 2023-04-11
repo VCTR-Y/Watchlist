@@ -28,6 +28,7 @@ public class WatchLists implements Writable {
         } else {
             watchedList.add(movie);
         }
+        EventLog.getInstance().logEvent(new Event("The movie \"" + movie.getMovieName() + "\" was added."));
     }
 
     // EFFECTS: adds a show to a watchlist
@@ -39,6 +40,7 @@ public class WatchLists implements Writable {
         } else {
             watchedList.add(show);
         }
+        EventLog.getInstance().logEvent(new Event("The show \"" + show.getShowName() + "\" was added."));
     }
 
     // REQUIRES: movie.getMovieStatus() == Status.TO_WATCH
@@ -97,6 +99,7 @@ public class WatchLists implements Writable {
         } else {
             watchedList.remove(movie);
         }
+        EventLog.getInstance().logEvent(new Event("The movie \"" + movie.getMovieName() + "\" was removed."));
     }
 
     // MODIFIES: this
@@ -109,6 +112,7 @@ public class WatchLists implements Writable {
         } else {
             watchedList.remove(show);
         }
+        EventLog.getInstance().logEvent(new Event("The show \"" + show.getShowName() + "\" was removed."));
     }
 
     // EFFECTS: returns the toWatchList

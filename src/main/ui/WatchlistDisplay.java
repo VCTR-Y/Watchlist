@@ -1,8 +1,6 @@
 package ui;
 
-import model.Movie;
-import model.Show;
-import model.WatchLists;
+import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -10,6 +8,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -49,9 +49,11 @@ public class WatchlistDisplay {
         mainFrame.add(watchlistUI);
         createWatchList();
         setButtons();
+        setWindowListener();
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
         mainFrame.setVisible(true);
+
     }
 
     // EFFECTS: Creates the watchlists displayed on screen
@@ -115,19 +117,49 @@ public class WatchlistDisplay {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (toWatchList.getSelectedRow() >= 0) {
-                    watchlist.getToWatchList().remove(toWatchList.getSelectedRow());
+                    removeFromToWatch();
                     toWatchData.removeRow(toWatchList.getSelectedRow());
                 } else if (watchingList.getSelectedRow() >= 0) {
-                    watchlist.getWatchingList().remove(watchingList.getSelectedRow());
+                    removeFromWatching();
                     watchingData.removeRow(watchingList.getSelectedRow());
                 } else if (watchedList.getSelectedRow() >= 0) {
-                    watchlist.getWatchedList().remove(watchedList.getSelectedRow());
+                    removeFromWatched();
                     watchedData.removeRow(watchedList.getSelectedRow());
                 } else {
                     JOptionPane.showMessageDialog(null, "Select a Movie/Show to delete");
                 }
             }
         });
+    }
+
+    // EFFECTS: Removes the selected movie or show from toWatchList
+    private void removeFromToWatch() {
+        Object remove = watchlist.getToWatchList().get(toWatchList.getSelectedRow());
+        if (remove instanceof Movie) {
+            watchlist.removeMovie((Movie) remove);
+        } else {
+            watchlist.removeShow((Show) remove);
+        }
+    }
+
+    // EFFECTS: Removes the selected movie or show from watchingList
+    private void removeFromWatching() {
+        Object remove = watchlist.getWatchingList().get(watchingList.getSelectedRow());
+        if (remove instanceof Movie) {
+            watchlist.removeMovie((Movie) remove);
+        } else {
+            watchlist.removeShow((Show) remove);
+        }
+    }
+
+    // EFFECTS: Removes the selected movie or show from watchedList
+    private void removeFromWatched() {
+        Object remove = watchlist.getWatchedList().get(watchedList.getSelectedRow());
+        if (remove instanceof Movie) {
+            watchlist.removeMovie((Movie) remove);
+        } else {
+            watchlist.removeShow((Show) remove);
+        }
     }
 
     // EFFECTS: Saves the data in the application
@@ -215,6 +247,18 @@ public class WatchlistDisplay {
                 watchedData.addRow(rowData);
             }
         }
+    }
+
+    // EFFECTS: Prints out all the events in EventLog into the console when the application is closed
+    private void setWindowListener() {
+        mainFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Event event : EventLog.getInstance()) {
+                    System.out.println(event.toString());
+                }
+            }
+        });
     }
 
     // EFFECTS: Gets toWatchData
