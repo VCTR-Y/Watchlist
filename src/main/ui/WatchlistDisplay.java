@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// The main GUI for my Watchlist application
 public class WatchlistDisplay {
 
     private static final String JSON_STORE = "./data/watchlist.json";

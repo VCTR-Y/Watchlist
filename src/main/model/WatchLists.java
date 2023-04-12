@@ -7,6 +7,7 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents my Watchlist with three different lists based on their status
 public class WatchLists implements Writable {
 
     private List<Object> toWatchList;

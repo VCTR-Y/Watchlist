@@ -65,7 +65,7 @@ The show "Watched Show" was removed.
 
 # Phase 4: Task 3
 If I had more time to work on this project, one substantive refactoring
-I might do would be to incorporate an interface or an abstract class and make
-my Movie and Show class implement or extend it. This is because I notice that
-there's a lot of repetition in my code and creating and interface or abstract class
-would reduce it.
+I might do would be to incorporate an interface called "Watchable" and make
+my Movie and Show class implement it. This is because I notice that there is a
+close relationship between these two classes and there's a lot of repetition in my 
+code. Creating an interface for my Movie and Show classes would reduce a lot of repetition.

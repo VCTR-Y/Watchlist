@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// A frame that lets the user add a movie
 public class AddMovieFrame {
     private JFrame frame;
     private JPanel panel1;
