@@ -25,7 +25,7 @@ public class ShowTest {
         assertEquals(12, show1.getShowEpisodes());
         assertEquals(0, show1.getShowEpisodesWatched());
         assertEquals(TO_WATCH, show1.getShowStatus());
-        assertEquals(Rating.NOT_COMPLETED.getNumRating(), show1.getShowRating());
+        assertEquals(0, show1.getShowRating());
     }
 
     @Test
