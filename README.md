@@ -1,4 +1,4 @@
-# My Personal Project
+# My Personal Project (CPSC 210)
 
 ## WatchList
 
